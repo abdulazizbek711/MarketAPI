@@ -4,6 +4,7 @@ using MarketApi.Dtos;
 using MarketApi.Interfaces;
 using MarketApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace MarketApi.Controllers
 {
@@ -61,24 +62,29 @@ public class UserController : Controller
                 return StatusCode(500, ModelState);
             }
 
-            return Ok("Successfully created");
+            return Ok(userCreate);
         }
         [HttpPut("{User_ID}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-
         public IActionResult UpdateUser(int User_ID, [FromBody] UserDto updatedUser)
         {
-            if (updatedUser == null)
+            if (updatedUser == null || User_ID != updatedUser.User_ID || !ModelState.IsValid)
                 return BadRequest(ModelState);
-            if (User_ID != updatedUser.User_ID)
-                return BadRequest(ModelState);
-            if (!_userRepository.UserExists(User_ID))
+
+            var existingUser = _userRepository.GetUser(User_ID);
+            if (existingUser == null)
                 return NotFound();
-            if (!ModelState.IsValid)
-                return BadRequest();
-            var userMap = _mapper.Map<User>(updatedUser);
+
+            _context.Entry(existingUser).State = EntityState.Detached;
+
+            // Update the properties based on the provided data
+            existingUser.UserName = updatedUser.UserName ?? existingUser.UserName;
+            existingUser.Email = updatedUser.Email ?? existingUser.Email;
+            existingUser.PhoneNumber = updatedUser.PhoneNumber ?? existingUser.PhoneNumber;
+
+            var userMap = _mapper.Map<User>(existingUser);
             if (!_userRepository.UpdateUser(userMap))
             {
                 ModelState.AddModelError("", "Something went wrong updating user");
@@ -87,6 +93,7 @@ public class UserController : Controller
 
             return NoContent();
         }
+
         [HttpDelete("{User_ID}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]

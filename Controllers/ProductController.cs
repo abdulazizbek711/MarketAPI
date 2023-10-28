@@ -4,6 +4,7 @@ using MarketApi.Dtos;
 using MarketApi.Interfaces;
 using MarketApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace MarketApi.Controllers
 {
@@ -70,25 +71,31 @@ namespace MarketApi.Controllers
                 return StatusCode(500, ModelState);
             }
 
-            return Ok("Successfully Created");
+            return Ok(productCreate);
         }
 
         [HttpPut("{Product_ID}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-
         public IActionResult UpdateProduct(int Product_ID, [FromBody] ProductDto updatedProduct)
         {
-            if (updatedProduct == null)
+            if (updatedProduct == null || Product_ID != updatedProduct.Product_ID || !ModelState.IsValid)
                 return BadRequest(ModelState);
-            if (Product_ID != updatedProduct.Product_ID)
-                return BadRequest(ModelState);
-            if (!_productRepository.ProductExists(Product_ID))
+
+            var existingProduct = _productRepository.GetProduct(Product_ID);
+            if (existingProduct == null)
                 return NotFound();
-            if (!ModelState.IsValid)
-                return BadRequest();
-            var productMap = _mapper.Map<Product>(updatedProduct);
+
+            _context.Entry(existingProduct).State = EntityState.Detached;
+
+            // Update the properties based on the provided data
+            existingProduct.Product_type = updatedProduct.Product_type ?? existingProduct.Product_type;
+            existingProduct.Quantity = updatedProduct.Quantity ?? existingProduct.Quantity;
+            existingProduct.Price_Amount= updatedProduct.Price_Amount ?? existingProduct.Price_Amount;
+            existingProduct.Price_Currency = updatedProduct.Price_Currency ?? existingProduct.Price_Currency;
+
+            var productMap = _mapper.Map<Product>(existingProduct);
             if (!_productRepository.UpdateProduct(productMap))
             {
                 ModelState.AddModelError("", "Something went wrong updating product");

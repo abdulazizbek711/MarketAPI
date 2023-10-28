@@ -4,6 +4,7 @@ using MarketApi.Dtos;
 using MarketApi.Interfaces;
 using MarketApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace MarketApi.Controllers
 
@@ -45,8 +46,7 @@ namespace MarketApi.Controllers
         {
             if (orderCreate == null)
                 return BadRequest(ModelState);
-
-            // Check if the review name already exists
+            
             var order = _orderRepository.GetOrders()
                 .Where(c => c.Order_number.ToString().ToUpper() == orderCreate.Order_number.ToString().ToUpper())
                 .FirstOrDefault();
@@ -60,11 +60,12 @@ namespace MarketApi.Controllers
                 return BadRequest(ModelState);
             
 
-            // Check if the Piece with the provided PieceId exists
+            
 
 
             var orderMap = _mapper.Map<Order>(orderCreate);
             orderMap.User = _userRepository.GetUser(User_ID);
+            
 
 
 
@@ -75,25 +76,35 @@ namespace MarketApi.Controllers
                 return StatusCode(500, ModelState);
             }
 
-            return Ok("Successfully Created");
+            return Ok(orderCreate);
         }
+
+
+
 
         [HttpPut("{Order_number}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-
-        public IActionResult UpdateOrder(int Order_number, [FromBody] OrderDto updatedOrder)
+        public IActionResult UpdateOrder(int Order_ID, [FromBody] OrderDto updatedOrder)
         {
-            if (updatedOrder == null)
+            if (updatedOrder == null || Order_ID != updatedOrder.Order_number || !ModelState.IsValid)
                 return BadRequest(ModelState);
-            if (Order_number != updatedOrder.Order_number)
-                return BadRequest(ModelState);
-            if (!_orderRepository.OrderExists(Order_number))
+
+            var existingOrder = _orderRepository.GetOrder(Order_ID);
+            if (existingOrder == null)
                 return NotFound();
-            if (!ModelState.IsValid)
-                return BadRequest();
-            var orderMap = _mapper.Map<Order>(updatedOrder);
+
+            _context.Entry(existingOrder).State = EntityState.Detached;
+
+            // Update the properties based on the provided data
+            existingOrder.User_ID = updatedOrder.User_ID ?? existingOrder.User_ID;
+            existingOrder.Product_ID = updatedOrder.Product_ID ?? existingOrder.Product_ID;
+            existingOrder.Quantity = updatedOrder.Quantity ?? existingOrder.Quantity;
+            existingOrder.Price_Amount = updatedOrder.Price_Amount ?? existingOrder.Price_Amount;
+            existingOrder.Price_Currency = updatedOrder.Price_Currency ?? existingOrder.Price_Currency;
+
+            var orderMap = _mapper.Map<Order>(existingOrder);
             if (!_orderRepository.UpdateOrder(orderMap))
             {
                 ModelState.AddModelError("", "Something went wrong updating order");
@@ -102,6 +113,7 @@ namespace MarketApi.Controllers
 
             return NoContent();
         }
+
 
         [HttpDelete("{Order_number}")]
         [ProducesResponseType(400)]
