@@ -1,10 +1,8 @@
 using MarketApi.Models;
 namespace MarketApi.Interfaces;
-public interface IOrderRepository
+public interface IOrderService
 {
-    ICollection<Order> GetOrders();
-    Order GetOrder(int Order_number);
-    bool OrderExists(int Order_number);
+    IEnumerable<Order> GetOrders();
     bool CreateOrder(Order order);
     bool UpdateOrder(Order order);
     bool DeleteOrder(Order order);

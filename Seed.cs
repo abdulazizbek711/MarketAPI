@@ -1,18 +1,14 @@
 using MarketApi.Data;
 using MarketApi.Models;
-
 namespace MarketApi
-
 {
     public class Seed
     {
         private readonly DataContext _context;
-
         public Seed(DataContext context)
         {
             _context = context;
         }
-
         public void SeedDataContext()
         {
             if (!_context.Users.Any())
@@ -21,11 +17,9 @@ namespace MarketApi
                 {
                     new User { UserName = "User1", Email = "user1@example.com" },
                     new User { UserName = "User2", Email = "user2@example.com" },
-                    // Add more users as needed
                 };
                 _context.Users.AddRange(users);
             }
-
             if (!_context.Products.Any())
             {
                 var products = new List<Product>
@@ -38,11 +32,9 @@ namespace MarketApi
                         Price_Amount = 7.99,
                         Price_Currency = "$"
                     },
-                    // Add more products as needed
                 };
                 _context.Products.AddRange(products);
             }
-
             if (!_context.Orders.Any())
             {
                 var orders = new List<Order>
@@ -55,13 +47,10 @@ namespace MarketApi
                         Price_Amount = 5.99,
                         Price_Currency = "USD"
                     },
-                    // Add more orders as needed
                 };
                 _context.Orders.AddRange(orders);
             }
-
             _context.SaveChanges();
         }
-
     }
 }

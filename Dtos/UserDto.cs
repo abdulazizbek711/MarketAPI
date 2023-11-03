@@ -1,7 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-
 namespace MarketApi.Dtos;
-
 public class UserDto
 {
     [Key]

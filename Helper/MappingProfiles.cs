@@ -1,9 +1,7 @@
 using AutoMapper;
 using MarketApi.Dtos;
 using MarketApi.Models;
-
 namespace MarketApi.Helper;
-
 public class MappingProfiles: Profile
 {
     public MappingProfiles()
@@ -14,6 +12,5 @@ public class MappingProfiles: Profile
         CreateMap<ProductDto, Product>();
         CreateMap<Order, OrderDto>();
         CreateMap<OrderDto, Order>();
-        
     }
 }

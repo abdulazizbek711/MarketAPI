@@ -1,7 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-
 namespace MarketApi.Models;
-
 public class Product
 {
     [Key]

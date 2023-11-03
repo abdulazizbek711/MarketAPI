@@ -1,7 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using MarketApi.Models;
 namespace MarketApi.Dtos;
-
 public class ProductDto
 {
     [Key]
