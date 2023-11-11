@@ -15,20 +15,15 @@ namespace MarketApi.Controllers
         private readonly IOrderService _orderService;
         private readonly IOrderRepository _orderRepository;
         private readonly IUserRepository _userRepository;
-        
-
         private readonly DataContext _context;
         private readonly IOrderMap _orderMap;
         private readonly IProductRepository _productRepository;
-
         public OrderController(IMapper mapper,IOrderService orderService, IOrderRepository orderRepository,IUserRepository userRepository, DataContext context, IOrderMap orderMap, IProductRepository productRepository)
         {
             _mapper = mapper;
             _orderService = orderService;
             _orderRepository = orderRepository;
             _userRepository = userRepository;
-           
-
             _context = context;
             _orderMap = orderMap;
             _productRepository = productRepository;
@@ -53,16 +48,14 @@ namespace MarketApi.Controllers
         [ProducesResponseType(400)]
         public IActionResult CreateOrder(int User_ID,  OrderDto orderCreate)
         {
-            User currentUser = _userRepository.GetUser(User_ID); // Replace with your logic to get the current user
+            User currentUser = _userRepository.GetUser(User_ID); 
             var orderMap = _orderMap.MapOrder(orderCreate, currentUser.User_ID);
             (bool success, string message) result = _orderService.CreateOrder(orderMap, orderCreate);
-
             if (!result.success)
             {
                 ModelState.AddModelError("", "Something went wrong while saving");
                 return StatusCode(500, ModelState);
             }
-
             return Ok(orderCreate);
         }
         [HttpPut("{Order_number}")]

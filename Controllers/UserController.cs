@@ -39,13 +39,11 @@ public class UserController : Controller
         {
             var userMap = _userMap.MapUser(userCreate);
             (bool success, string message) result = _userService.CreateUser(userMap, userCreate);
-
             if (!result.success)
             {
                 ModelState.AddModelError("", "Something went wrong while saving");
                 return StatusCode(500, ModelState);
             }
-
             return Ok(userCreate);
         }
         [HttpPut("{User_ID}")]

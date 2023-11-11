@@ -40,16 +40,13 @@ namespace MarketApi.Controllers
         {
             var productMap = _productMap.MapProduct(productCreate);
             (bool success, string message) result = _productService.CreateProduct(productMap, productCreate);
-
             if (!result.success)
             {
                 ModelState.AddModelError("", "Something went wrong while saving");
                 return StatusCode(500, ModelState);
             }
-
             return Ok(productCreate);
         }
-
         [HttpPut("{Product_ID}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
@@ -62,7 +59,6 @@ namespace MarketApi.Controllers
             if (existingProduct == null)
                 return NotFound();
             _context.Entry(existingProduct).State = EntityState.Detached;
-            // Update the properties based on the provided data
             existingProduct.Product_type = updatedProduct.Product_type ?? existingProduct.Product_type;
             existingProduct.Quantity = updatedProduct.Quantity ?? existingProduct.Quantity;
             existingProduct.Price_Amount= updatedProduct.Price_Amount ?? existingProduct.Price_Amount;

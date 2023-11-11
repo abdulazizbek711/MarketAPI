@@ -4,15 +4,12 @@ using MarketApi.Dtos;
 using MarketApi.Interfaces;
 using MarketApi.Models;
 using Microsoft.AspNetCore.Mvc;
-
 namespace MarketApi.Helper;
-
 public class OrderMap: IOrderMap
 {
     private readonly IMapper _mapper;
     private readonly IOrderService _orderService;
     private readonly IUserRepository _userRepository;
-
     public OrderMap(IMapper mapper, IOrderService orderService, IUserRepository userRepository)
     {
         _mapper = mapper;
@@ -28,7 +25,6 @@ public class OrderMap: IOrderMap
         {
             throw new InvalidOperationException("Something went wrong while saving");
         }
-
         return orderMap;
     }
 }

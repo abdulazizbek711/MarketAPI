@@ -1,7 +1,6 @@
 using MarketApi.Dtos;
 using MarketApi.Models;
 using Microsoft.AspNetCore.Mvc;
-
 namespace MarketApi.Interfaces;
 public interface IUserService
 {
