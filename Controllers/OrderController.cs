@@ -15,22 +15,29 @@ namespace MarketApi.Controllers
         private readonly IOrderService _orderService;
         private readonly IOrderRepository _orderRepository;
         private readonly IUserRepository _userRepository;
+        
+
         private readonly DataContext _context;
-        public OrderController(IMapper mapper,IOrderService orderService, IOrderRepository orderRepository,IUserRepository userRepository, DataContext context)
+        private readonly IOrderMap _orderMap;
+        private readonly IProductRepository _productRepository;
+
+        public OrderController(IMapper mapper,IOrderService orderService, IOrderRepository orderRepository,IUserRepository userRepository, DataContext context, IOrderMap orderMap, IProductRepository productRepository)
         {
             _mapper = mapper;
             _orderService = orderService;
             _orderRepository = orderRepository;
             _userRepository = userRepository;
+           
+
             _context = context;
+            _orderMap = orderMap;
+            _productRepository = productRepository;
         }
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Order>))]
         public IActionResult GetOrders()
         {
             var orders = _orderService.GetOrders();
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
             return Ok(orders);
         }
         public static class OrderNumberGenerator
@@ -44,28 +51,18 @@ namespace MarketApi.Controllers
         [HttpPost("{Order_number}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
-        public IActionResult CreateOrder([FromQuery]int User_ID, [FromQuery]int Product_ID, [FromBody] OrderDto orderCreate)
+        public IActionResult CreateOrder(int User_ID,  OrderDto orderCreate)
         {
-            if (orderCreate == null)
-                return BadRequest(ModelState);
-            var order = _orderService.GetOrders()
-                .Where(c => c.Order_number.ToString().ToUpper() == orderCreate.Order_number.ToString().ToUpper())
-                .FirstOrDefault();
-            if (order != null)
-            {
-                ModelState.AddModelError("", "Order already exists");
-                return StatusCode(422, ModelState);
-            }
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            var orderMap = _mapper.Map<Order>(orderCreate);
-            orderMap.User = _userRepository.GetUser(User_ID);
-            orderMap.Order_number = OrderNumberGenerator.GenerateOrderNumber();
-            if (!_orderService.CreateOrder(orderMap))
+            User currentUser = _userRepository.GetUser(User_ID); // Replace with your logic to get the current user
+            var orderMap = _orderMap.MapOrder(orderCreate, currentUser.User_ID);
+            (bool success, string message) result = _orderService.CreateOrder(orderMap, orderCreate);
+
+            if (!result.success)
             {
                 ModelState.AddModelError("", "Something went wrong while saving");
                 return StatusCode(500, ModelState);
             }
+
             return Ok(orderCreate);
         }
         [HttpPut("{Order_number}")]

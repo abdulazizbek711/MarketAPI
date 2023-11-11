@@ -1,6 +1,10 @@
+using System.Web.Http.ModelBinding;
 using AutoMapper;
 using MarketApi.Dtos;
+using MarketApi.Interfaces;
 using MarketApi.Models;
+using Microsoft.AspNetCore.Mvc;
+
 namespace MarketApi.Helper;
 public class MappingProfiles: Profile
 {
@@ -13,4 +17,5 @@ public class MappingProfiles: Profile
         CreateMap<Order, OrderDto>();
         CreateMap<OrderDto, Order>();
     }
+    
 }

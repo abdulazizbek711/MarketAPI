@@ -1,6 +1,7 @@
 using MarketApi;
 using System.Text.Json.Serialization;
 using MarketApi.Data;
+using MarketApi.Helper;
 using MarketApi.Interfaces;
 using MarketApi.Repositories;
 using MarketApi.Services;
@@ -14,6 +15,9 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IProductMap, ProductMap>();
+builder.Services.AddScoped<IUserMap, UserMap>();
+builder.Services.AddScoped<IOrderMap, OrderMap>();
 builder.Services.AddControllers().AddJsonOptions(x =>
     x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -41,6 +45,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

@@ -15,45 +15,37 @@ public class UserController : Controller
         private readonly IMapper _mapper;
         private readonly DataContext _context;
         private readonly IUserService _userService;
-        public UserController(IUserRepository userRepository, IMapper mapper, DataContext context, IUserService userService)
+        private readonly IUserMap _userMap;
+
+        public UserController(IUserRepository userRepository, IMapper mapper, DataContext context, IUserService userService, IUserMap userMap)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _context = context;
             _userService = userService;
+            _userMap = userMap;
         }
         [HttpGet]
-        [ProducesResponseType(200, Type = typeof(User))]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<User>))]
         public IActionResult GetUsers()
         {
             var users = _userService.GetUsers();
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
             return Ok(users);
         }
-        [HttpPost]
+        [HttpPost("{User_ID}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
-        public IActionResult CreateUser([FromBody] UserDto userCreate)
+        public IActionResult CreateUser(UserDto userCreate)
         {
-            if (userCreate == null)
-                return BadRequest(ModelState);
-            var user = _userRepository.GetUsers()
-                .Where(c => c.UserName.Trim().ToUpper() == userCreate.UserName.TrimEnd().ToUpper())
-                .FirstOrDefault();
-            if (user != null)
+            var userMap = _userMap.MapUser(userCreate);
+            (bool success, string message) result = _userService.CreateUser(userMap, userCreate);
+
+            if (!result.success)
             {
-                ModelState.AddModelError("", "User already exists");
-                return StatusCode(422, ModelState);
-            }
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            var userMap = _mapper.Map<User>(userCreate);
-            if (!_userService.CreateUser(userMap))
-            {
-                ModelState.AddModelError("", "Something went wrong while savin");
+                ModelState.AddModelError("", "Something went wrong while saving");
                 return StatusCode(500, ModelState);
             }
+
             return Ok(userCreate);
         }
         [HttpPut("{User_ID}")]
