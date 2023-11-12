@@ -53,23 +53,14 @@ namespace MarketApi.Controllers
         [ProducesResponseType(404)]
         public IActionResult UpdateProduct(int Product_ID, [FromBody] ProductDto updatedProduct)
         {
-            if (updatedProduct == null || Product_ID != updatedProduct.Product_ID || !ModelState.IsValid)
-                return BadRequest(ModelState);
-            var existingProduct = _productRepository.GetProduct(Product_ID);
-            if (existingProduct == null)
-                return NotFound();
-            _context.Entry(existingProduct).State = EntityState.Detached;
-            existingProduct.Product_type = updatedProduct.Product_type ?? existingProduct.Product_type;
-            existingProduct.Quantity = updatedProduct.Quantity ?? existingProduct.Quantity;
-            existingProduct.Price_Amount= updatedProduct.Price_Amount ?? existingProduct.Price_Amount;
-            existingProduct.Price_Currency = updatedProduct.Price_Currency ?? existingProduct.Price_Currency;
-            var productMap = _mapper.Map<Product>(existingProduct);
-            if (!_productService.UpdateProduct(productMap))
+            var productMap = _productMap.MappProduct(Product_ID, updatedProduct);
+            (bool success, string message) result = _productService.UpdateProduct(productMap, Product_ID, updatedProduct);
+            if (!result.success)
             {
-                ModelState.AddModelError("", "Something went wrong updating product");
+                ModelState.AddModelError("", "Something went wrong while updating");
                 return StatusCode(500, ModelState);
             }
-            return NoContent();
+            return Ok(updatedProduct);
         }
         [HttpDelete("{Product_ID}")]
         [ProducesResponseType(400)]
@@ -77,14 +68,12 @@ namespace MarketApi.Controllers
         [ProducesResponseType(404)]
         public IActionResult DeleteProduct(int Product_ID)
         {
-            if (!_productRepository.ProductExists(Product_ID))
-                return NotFound();
             var productToDelete = _productRepository.GetProduct(Product_ID);
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            if (!_productService.DeleteProduct(productToDelete))
+            (bool success, string message) result = _productService.DeleteProduct(Product_ID);
+            if (!result.success)
             {
-                ModelState.AddModelError("", "Something went wrong deleting product");
+                ModelState.AddModelError("", "Something went wrong while updating");
+                return StatusCode(500, ModelState);
             }
             return NoContent();
         }

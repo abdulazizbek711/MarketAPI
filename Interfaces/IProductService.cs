@@ -5,6 +5,6 @@ public interface IProductService
 {
     IEnumerable<Product> GetProducts();
     public (bool, string) CreateProduct(Product product, ProductDto productCreate);
-    bool UpdateProduct(Product product);
-    bool DeleteProduct(Product product);
+    public (bool, string) UpdateProduct(Product product, int Product_ID, ProductDto productCreate);
+    public (bool, string) DeleteProduct(int Product_ID);
 }

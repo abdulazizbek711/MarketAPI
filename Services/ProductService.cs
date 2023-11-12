@@ -1,14 +1,20 @@
+using MarketApi.Data;
 using MarketApi.Dtos;
 using MarketApi.Interfaces;
 using MarketApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
 namespace MarketApi.Services;
 public class ProductService: IProductService
 {
     private readonly IProductRepository _productRepository;
-    public ProductService(IProductRepository productRepository)
+    private readonly DataContext _context;
+
+    public ProductService(IProductRepository productRepository, DataContext context)
     {
         _productRepository = productRepository;
+        _context = context;
     }
     public IEnumerable<Product> GetProducts()
     {
@@ -19,7 +25,7 @@ public class ProductService: IProductService
         }
         return products;
     }
-    public (bool, string) CreateProduct(Product product, ProductDto productCreate)
+    public (bool, string) CreateProduct(Product product,  ProductDto productCreate)
     {
         if (productCreate == null)
         {
@@ -34,12 +40,35 @@ public class ProductService: IProductService
         _productRepository.CreateProduct(product);
         return (true, "Product created successfully");
     }
-    public bool UpdateProduct(Product product)
+    public (bool, string) UpdateProduct(Product product, int Product_ID,  ProductDto updatedProduct)
     {
-        return _productRepository.UpdateProduct(product);
+        if (updatedProduct == null || Product_ID != updatedProduct.Product_ID)
+        {
+            return (false, "No products updated");
+        }
+        var existingProduct = _productRepository.GetProduct(Product_ID);
+        if (existingProduct == null)
+            return (false, "No products found");
+        _context.Entry(existingProduct).State = EntityState.Detached;
+        existingProduct.Product_type = updatedProduct.Product_type ?? existingProduct.Product_type;
+        existingProduct.Quantity = updatedProduct.Quantity ?? existingProduct.Quantity;
+        existingProduct.Price_Amount= updatedProduct.Price_Amount ?? existingProduct.Price_Amount;
+        existingProduct.Price_Currency = updatedProduct.Price_Currency ?? existingProduct.Price_Currency;
+        _productRepository.UpdateProduct(product);
+        return (true, "Product updated successfully");
     }
-    public bool DeleteProduct(Product product)
+    public (bool, string) DeleteProduct(int Product_ID)
     {
-        return _productRepository.DeleteProduct(product);
+        if (!_productRepository.ProductExists(Product_ID))
+        {
+            return (false, "Product not found");
+        }
+        var productToDelete = _productRepository.GetProduct(Product_ID);
+        if (productToDelete == null)
+        {
+            return (false, "Product not exist");
+        }
+        _productRepository.DeleteProduct(productToDelete);
+        return (true, "Product succesfully deleted");
     }
 }

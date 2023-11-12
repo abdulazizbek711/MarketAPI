@@ -1,18 +1,24 @@
+using MarketApi.Data;
 using MarketApi.Dtos;
 using MarketApi.Interfaces;
 using MarketApi.Models;
+using Microsoft.EntityFrameworkCore;
+
 namespace MarketApi.Services;
 public class OrderService:IOrderService
 {
     private readonly IOrderRepository _orderRepository;
-    public OrderService(IOrderRepository orderRepository)
+    private readonly DataContext _context;
+
+    public OrderService(IOrderRepository orderRepository, DataContext context)
     {
         _orderRepository = orderRepository;
+        _context = context;
     }
     public IEnumerable<Order> GetOrders()
     {
         var orders = _orderRepository.GetOrders();
-        if (orders == null || !orders.Any())
+        if (orders == null)
         {
             throw new InvalidOperationException("No orders found");
         }
@@ -34,12 +40,36 @@ public class OrderService:IOrderService
         _orderRepository.CreateOrder(order);
         return (true, "Order created successfully");
     }
-    public bool UpdateOrder(Order order)
+    public (bool, string) UpdateOrder(Order order, int Order_number,  OrderDto updatedOrder)
     {
-        return _orderRepository.UpdateOrder(order);
+        if (updatedOrder == null || Order_number != updatedOrder.Order_number)
+        {
+            return (false, "No orders updated");
+        }
+        var existingOrder = _orderRepository.GetOrder(Order_number);
+        if (existingOrder == null)
+            return (false, "No orders found");
+        _context.Entry(existingOrder).State = EntityState.Detached;
+        existingOrder.User_ID = updatedOrder.User_ID ?? existingOrder.User_ID;
+        existingOrder.Product_ID = updatedOrder.Product_ID ?? existingOrder.Product_ID;
+        existingOrder.Quantity = updatedOrder.Quantity ?? existingOrder.Quantity;
+        existingOrder.Price_Amount = updatedOrder.Price_Amount ?? existingOrder.Price_Amount;
+        existingOrder.Price_Currency = updatedOrder.Price_Currency ?? existingOrder.Price_Currency;
+        _orderRepository.UpdateOrder(order);
+        return (true, "Order updated successfully");
     }
-    public bool DeleteOrder(Order order)
+    public (bool, string) DeleteOrder(int Order_number)
     {
-        return _orderRepository.DeleteOrder(order);
+        if (!_orderRepository.OrderExists(Order_number))
+        {
+            return (false, "Order not found");
+        }
+        var orderToDelete = _orderRepository.GetOrder(Order_number);
+        if (orderToDelete == null)
+        {
+            return (false, "Order not exist");
+        }
+        _orderRepository.DeleteOrder(orderToDelete);
+        return (true, "Order succesfully deleted");
     }
 }

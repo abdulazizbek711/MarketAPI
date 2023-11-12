@@ -1,13 +1,19 @@
+using MarketApi.Data;
 using MarketApi.Dtos;
 using MarketApi.Interfaces;
 using MarketApi.Models;
+using Microsoft.EntityFrameworkCore;
+
 namespace MarketApi.Services;
 public class UserService:IUserService
 {
     private readonly IUserRepository _userRepository;
-    public UserService(IUserRepository userRepository)
+    private readonly DataContext _context;
+
+    public UserService(IUserRepository userRepository, DataContext context)
     {
         _userRepository = userRepository;
+        _context = context;
     }
     public IEnumerable<User> GetUsers()
     {
@@ -33,12 +39,34 @@ public class UserService:IUserService
         _userRepository.CreateUser(user);
         return (true, "User created successfully");
     }
-    public bool UpdateUser(User user)
+    public (bool, string) UpdateUser(User user, int User_ID,  UserDto updatedUser)
     {
-        return _userRepository.UpdateUser(user);
+        if (updatedUser == null || User_ID != updatedUser.User_ID)
+        {
+            return (false, "No users updated");
+        }
+        var existingUser = _userRepository.GetUser(User_ID);
+        if (existingUser == null)
+            return (false, "No users found");
+        _context.Entry(existingUser).State = EntityState.Detached;
+        existingUser.UserName = updatedUser.UserName ?? existingUser.UserName;
+        existingUser.Email = updatedUser.Email ?? existingUser.Email;
+        existingUser.PhoneNumber = updatedUser.PhoneNumber ?? existingUser.PhoneNumber;
+        _userRepository.UpdateUser(user);
+        return (true, "User updated successfully");
     }
-    public bool DeleteUser(User user)
+    public (bool, string) DeleteUser(int User_ID)
     {
-        return _userRepository.DeleteUser(user);
+        if (!_userRepository.UserExists(User_ID))
+        {
+            return (false, "User not found");
+        }
+        var userToDelete = _userRepository.GetUser(User_ID);
+        if (userToDelete == null)
+        {
+            return (false, "User not exist");
+        }
+        _userRepository.DeleteUser(userToDelete);
+        return (true, "User succesfully deleted");
     }
 }

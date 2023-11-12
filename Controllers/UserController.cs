@@ -52,22 +52,15 @@ public class UserController : Controller
         [ProducesResponseType(404)]
         public IActionResult UpdateUser(int User_ID, [FromBody] UserDto updatedUser)
         {
-            if (updatedUser == null || User_ID != updatedUser.User_ID || !ModelState.IsValid)
-                return BadRequest(ModelState);
-            var existingUser = _userRepository.GetUser(User_ID);
-            if (existingUser == null)
-                return NotFound();
-            _context.Entry(existingUser).State = EntityState.Detached;
-            existingUser.UserName = updatedUser.UserName ?? existingUser.UserName;
-            existingUser.Email = updatedUser.Email ?? existingUser.Email;
-            existingUser.PhoneNumber = updatedUser.PhoneNumber ?? existingUser.PhoneNumber;
-            var userMap = _mapper.Map<User>(existingUser);
-            if (!_userService.UpdateUser(userMap))
+            var userMap = _userMap.MappUser(User_ID, updatedUser);
+            (bool success, string message) result = _userService.UpdateUser(userMap, User_ID, updatedUser);
+            if (!result.success)
             {
-                ModelState.AddModelError("", "Something went wrong updating user");
+                ModelState.AddModelError("", "Something went wrong while updating");
                 return StatusCode(500, ModelState);
             }
-            return NoContent();
+
+            return Ok(updatedUser);
         }
         [HttpDelete("{User_ID}")]
         [ProducesResponseType(400)]
@@ -75,14 +68,12 @@ public class UserController : Controller
         [ProducesResponseType(404)]
         public IActionResult DeleteUser(int User_ID)
         {
-            if (!_userRepository.UserExists(User_ID))
-                return NotFound();
             var userToDelete = _userRepository.GetUser(User_ID);
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            if (!_userService.DeleteUser(userToDelete))
+            (bool success, string message) result = _userService.DeleteUser(User_ID);
+            if (!result.success)
             {
-                ModelState.AddModelError("", "Something went wrong deleting user");
+                ModelState.AddModelError("", "Something went wrong while updating");
+                return StatusCode(500, ModelState);
             }
             return NoContent();
         }

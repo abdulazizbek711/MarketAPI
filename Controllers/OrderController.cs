@@ -62,26 +62,16 @@ namespace MarketApi.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public IActionResult UpdateOrder(int Order_ID, [FromBody] OrderDto updatedOrder)
+        public IActionResult UpdateOrder(int Order_number, [FromBody] OrderDto updatedOrder)
         {
-            if (updatedOrder == null || Order_ID != updatedOrder.Order_number || !ModelState.IsValid)
-                return BadRequest(ModelState);
-            var existingOrder = _orderRepository.GetOrder(Order_ID);
-            if (existingOrder == null)
-                return NotFound();
-            _context.Entry(existingOrder).State = EntityState.Detached;
-            existingOrder.User_ID = updatedOrder.User_ID ?? existingOrder.User_ID;
-            existingOrder.Product_ID = updatedOrder.Product_ID ?? existingOrder.Product_ID;
-            existingOrder.Quantity = updatedOrder.Quantity ?? existingOrder.Quantity;
-            existingOrder.Price_Amount = updatedOrder.Price_Amount ?? existingOrder.Price_Amount;
-            existingOrder.Price_Currency = updatedOrder.Price_Currency ?? existingOrder.Price_Currency;
-            var orderMap = _mapper.Map<Order>(existingOrder);
-            if (!_orderService.UpdateOrder(orderMap))
+            var orderMap = _orderMap.MappOrder(Order_number, updatedOrder);
+            (bool success, string message) result = _orderService.UpdateOrder(orderMap, Order_number, updatedOrder);
+            if (!result.success)
             {
-                ModelState.AddModelError("", "Something went wrong updating order");
+                ModelState.AddModelError("", "Something went wrong while updating");
                 return StatusCode(500, ModelState);
             }
-            return NoContent();
+            return Ok(updatedOrder);
         }
         [HttpDelete("{Order_number}")]
         [ProducesResponseType(400)]
@@ -89,14 +79,12 @@ namespace MarketApi.Controllers
         [ProducesResponseType(404)]
         public IActionResult DeleteOrder(int Order_number)
         {
-            if (!_orderRepository.OrderExists(Order_number))
-                return NotFound();
             var orderToDelete = _orderRepository.GetOrder(Order_number);
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            if (!_orderService.DeleteOrder(orderToDelete))
+            (bool success, string message) result = _orderService.DeleteOrder(Order_number);
+            if (!result.success)
             {
-                ModelState.AddModelError("", "Something went wrong deleting order");
+                ModelState.AddModelError("", "Something went wrong while updating");
+                return StatusCode(500, ModelState);
             }
             return NoContent();
         }
