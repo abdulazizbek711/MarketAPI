@@ -15,15 +15,13 @@ namespace MarketApi.Controllers
         private readonly IProductRepository _productRepository;
         private readonly IProductService _productService;
         private readonly IMapper _mapper;
-        private readonly DataContext _context;
         private readonly IProductMap _productMap;
 
-        public ProductController(IProductRepository productRepository,  IProductService productService, IMapper mapper, DataContext context, IProductMap productMap)
+        public ProductController(IProductRepository productRepository,  IProductService productService, IMapper mapper, IProductMap productMap)
         {
             _productRepository = productRepository;
             _productService = productService;
             _mapper = mapper;
-            _context = context;
             _productMap = productMap;
         }
         [HttpGet]

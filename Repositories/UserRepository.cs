@@ -13,7 +13,7 @@ public class UserRepository : IUserRepository
     {
         return _context.Users.OrderBy(u => u.User_ID).ToList();
     }
-    User IUserRepository.GetUser(int User_ID)
+    public User GetUser(int User_ID)
     {
         return _context.Users.Where(u => u.User_ID==User_ID).FirstOrDefault();
     }
@@ -33,6 +33,10 @@ public class UserRepository : IUserRepository
     }
     public bool DeleteUser(User user)
     {
+        if (!_context.Users.Any(u =>u.User_ID == user.User_ID))
+        {
+            return false;
+        }
         _context.Remove(user);
         return Save();
     }

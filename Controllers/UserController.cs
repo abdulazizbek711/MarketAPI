@@ -13,15 +13,13 @@ public class UserController : Controller
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-        private readonly DataContext _context;
         private readonly IUserService _userService;
         private readonly IUserMap _userMap;
 
-        public UserController(IUserRepository userRepository, IMapper mapper, DataContext context, IUserService userService, IUserMap userMap)
+        public UserController(IUserRepository userRepository, IMapper mapper, IUserService userService, IUserMap userMap)
         {
             _userRepository = userRepository;
             _mapper = mapper;
-            _context = context;
             _userService = userService;
             _userMap = userMap;
         }

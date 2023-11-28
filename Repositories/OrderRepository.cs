@@ -34,6 +34,10 @@ public class OrderRepository: IOrderRepository
     }
     public bool DeleteOrder(Order order)
     {
+        if (!_context.Orders.Any(o => o.Order_number == order.Order_number))
+        {
+            return false;
+        }
         _context.Remove(order);
         return Save();
     }

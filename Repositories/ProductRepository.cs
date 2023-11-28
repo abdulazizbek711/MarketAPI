@@ -38,6 +38,10 @@ public class ProductRepository: IProductRepository
     }
     public bool DeleteProduct(Product product)
     {
+        if (!_context.Products.Any(p => p.Product_ID == product.Product_ID))
+        {
+            return false;
+        }
         _context.Remove(product);
         return Save();
     }

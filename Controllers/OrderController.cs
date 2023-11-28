@@ -15,16 +15,14 @@ namespace MarketApi.Controllers
         private readonly IOrderService _orderService;
         private readonly IOrderRepository _orderRepository;
         private readonly IUserRepository _userRepository;
-        private readonly DataContext _context;
         private readonly IOrderMap _orderMap;
         private readonly IProductRepository _productRepository;
-        public OrderController(IMapper mapper,IOrderService orderService, IOrderRepository orderRepository,IUserRepository userRepository, DataContext context, IOrderMap orderMap, IProductRepository productRepository)
+        public OrderController(IMapper mapper,IOrderService orderService, IOrderRepository orderRepository,IUserRepository userRepository, IOrderMap orderMap, IProductRepository productRepository)
         {
             _mapper = mapper;
             _orderService = orderService;
             _orderRepository = orderRepository;
             _userRepository = userRepository;
-            _context = context;
             _orderMap = orderMap;
             _productRepository = productRepository;
         }
