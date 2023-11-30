@@ -40,9 +40,10 @@ namespace MarketApi.Controllers
             (bool success, string message) result = _productService.CreateProduct(productMap, productCreate);
             if (!result.success)
             {
-                ModelState.AddModelError("", "Something went wrong while saving");
-                return StatusCode(500, ModelState);
+                ModelState.AddModelError("", "Something went wrong while savin"); // Use the message from the service
+                return BadRequest(ModelState); // Return a 400 Bad Request for client errors
             }
+
             return Ok(productCreate);
         }
         [HttpPut("{Product_ID}")]
@@ -56,7 +57,7 @@ namespace MarketApi.Controllers
             if (!result.success)
             {
                 ModelState.AddModelError("", "Something went wrong while updating");
-                return StatusCode(500, ModelState);
+                return BadRequest(ModelState);
             }
             return Ok(updatedProduct);
         }
@@ -71,7 +72,7 @@ namespace MarketApi.Controllers
             if (!result.success)
             {
                 ModelState.AddModelError("", "Something went wrong while updating");
-                return StatusCode(500, ModelState);
+                return BadRequest(ModelState);
             }
             return NoContent();
         }

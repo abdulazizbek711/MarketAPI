@@ -31,7 +31,8 @@ public class UserService:IUserService
             return (false, "No Users Created");
         }
         var existingUser = _userRepository.GetUsers()
-            .FirstOrDefault(c => c.UserName.Trim().ToUpper() == userCreate.UserName.Trim().ToUpper());
+            .FirstOrDefault(c => c.UserName != null &&
+                                 c.UserName.Trim().ToUpper() == userCreate.UserName.Trim().ToUpper());
         if (existingUser != null)
         {
             return (false, "User already exists");
@@ -47,12 +48,15 @@ public class UserService:IUserService
         }
         var existingUser = _userRepository.GetUser(User_ID);
         if (existingUser == null)
+        {
             return (false, "No users found");
+        }
         _context.Entry(existingUser).State = EntityState.Detached;
         existingUser.UserName = updatedUser.UserName ?? existingUser.UserName;
         existingUser.Email = updatedUser.Email ?? existingUser.Email;
         existingUser.PhoneNumber = updatedUser.PhoneNumber ?? existingUser.PhoneNumber;
-        _userRepository.UpdateUser(user);
+        // Update the user in the repository
+        _userRepository.UpdateUser(existingUser);
         return (true, "User updated successfully");
     }
     public (bool, string) DeleteUser(int User_ID)
@@ -67,6 +71,6 @@ public class UserService:IUserService
             return (false, "User not exist");
         }
         _userRepository.DeleteUser(userToDelete);
-        return (true, "User succesfully deleted");
+        return (true, "User successfully deleted");
     }
 }

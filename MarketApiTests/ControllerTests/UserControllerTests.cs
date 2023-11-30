@@ -35,6 +35,7 @@ public class UserControllerTests
         //Assert
         result.Should().NotBeNull();
         result.Should().BeOfType(typeof(OkObjectResult));
+        result.Should().BeOfType<OkObjectResult>().Which.StatusCode.Should().Be(200);
     }
 
     [Fact]
@@ -47,6 +48,7 @@ public class UserControllerTests
         var result = controller.CreateUser(user);
         //Assert
         result.Should().NotBeNull();
+        result.Should().BeOfType<BadRequestObjectResult>().Which.StatusCode.Should().Be(400);
     }
 
     [Fact]
@@ -60,6 +62,7 @@ public class UserControllerTests
         var result = controller.UpdateUser(User_ID, user);
         //Assert
         result.Should().NotBeNull();
+        result.Should().BeOfType<BadRequestObjectResult>().Which.StatusCode.Should().Be(400);
     }
 
     [Theory]
@@ -72,6 +75,7 @@ public class UserControllerTests
         //Act
         var result = controller.DeleteUser(User_ID);
         //Assert
-        result.Should().BeOfType(typeof(ObjectResult));
+        result.Should().NotBeNull();
+        result.Should().BeOfType<BadRequestObjectResult>().Which.StatusCode.Should().Be(400);
     }
 }

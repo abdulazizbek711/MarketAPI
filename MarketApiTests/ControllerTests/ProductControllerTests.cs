@@ -5,6 +5,7 @@ using MarketApi.Controllers;
 using MarketApi.Data;
 using MarketApi.Dtos;
 using MarketApi.Interfaces;
+using MarketApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Xunit;
 
@@ -36,8 +37,8 @@ public class ProductControllerTests
         //Assert
         result.Should().NotBeNull();
         result.Should().BeOfType(typeof(OkObjectResult));
+        result.Should().BeOfType<OkObjectResult>().Which.StatusCode.Should().Be(200);
     }
-
     [Fact]
     public void ProductController_CreateProduct_ReturnsOkObjectResult()
     {
@@ -48,8 +49,8 @@ public class ProductControllerTests
         var result = controller.CreateProduct(product);
         //Assert
         result.Should().NotBeNull();
+        result.Should().BeOfType<BadRequestObjectResult>().Which.StatusCode.Should().Be(400);
     }
-
     [Fact]
     public void ProductController_UpdateProduct_ReturnsOkObjectResult()
     {
@@ -61,8 +62,8 @@ public class ProductControllerTests
         var result = controller.UpdateProduct(Product_ID, product);
         //Assert
         result.Should().NotBeNull();
+        result.Should().BeOfType<BadRequestObjectResult>().Which.StatusCode.Should().Be(400);
     }
-
     [Theory]
     [InlineData(1)]
     [InlineData(2)]
@@ -73,6 +74,7 @@ public class ProductControllerTests
         //Act
         var result = controller.DeleteProduct(Product_ID);
         //Assert
-        result.Should().BeOfType(typeof(ObjectResult));
+        result.Should().NotBeNull();
+        result.Should().BeOfType<BadRequestObjectResult>().Which.StatusCode.Should().Be(400);
     }
 }

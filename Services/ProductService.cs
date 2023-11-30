@@ -32,7 +32,8 @@ public class ProductService: IProductService
             return (false, "No Products Created");
         }
         var existingProduct = _productRepository.GetProducts()
-            .FirstOrDefault(c => c.Product_type.Trim().ToUpper() == productCreate.Product_type.Trim().ToUpper());
+            .FirstOrDefault(c => c.Product_type != null &&
+                                 c.Product_type.Trim().ToUpper() == productCreate.Product_type.Trim().ToUpper());
         if (existingProduct != null)
         {
             return (false, "Product already exists");
@@ -69,6 +70,6 @@ public class ProductService: IProductService
             return (false, "Product not exist");
         }
         _productRepository.DeleteProduct(productToDelete);
-        return (true, "Product succesfully deleted");
+        return (true, "Product successfully deleted");
     }
 }

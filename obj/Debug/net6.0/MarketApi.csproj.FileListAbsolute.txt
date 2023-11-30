@@ -154,3 +154,4 @@
 /home/hp/Desktop/MarketApi/bin/Debug/net6.0/MarketApiTests/obj/MArketApiTests.csproj.nuget.dgspec.json
 /home/hp/Desktop/MarketApi/bin/Debug/net6.0/MarketApiTests/obj/project.assets.json
 /home/hp/Desktop/MarketApi/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.InMemory.dll
+/home/hp/Desktop/MarketApi/bin/Debug/net6.0/GenericCollectionsExtension.dll

@@ -31,8 +31,9 @@ public class OrderService:IOrderService
             return (false, "No Orders Created");
         }
         var existingOrder = _orderRepository.GetOrders()
-            .Where(c => c.Order_number.ToString().ToUpper() == orderCreate.Order_number.ToString().ToUpper())
-            .FirstOrDefault();
+            .FirstOrDefault(c => c.Order_number != null &&
+                                 c.Order_number.ToString().ToUpper() == orderCreate.Order_number.ToString().ToUpper());
+
         if (existingOrder != null)
         {
             return (false, "Order already exists");

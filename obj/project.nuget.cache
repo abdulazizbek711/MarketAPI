@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "bn2pHuKdS+o0DAzLWyNSDaDc9tWR+eOqUhHI1tME5tN9KNKo+tY5PePFh8G6wPoXvyTg665npVs8IdqkMp/lGg==",
+  "dgSpecHash": "ymLKDHb9Fsp6nrHjFmgEl/DSFMJvcXj2OwGs82qxgfHUCh4SNAWIjNF8l75gGnnSH+wzRb4QN+L6b+6ZbJVgqg==",
   "success": true,
   "projectFilePath": "/home/hp/Desktop/MarketApi/MarketApi.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,7 @@
     "/home/hp/.nuget/packages/castle.core/4.3.1/castle.core.4.3.1.nupkg.sha512",
     "/home/hp/.nuget/packages/fakeiteasy/6.0.0/fakeiteasy.6.0.0.nupkg.sha512",
     "/home/hp/.nuget/packages/fluentassertions/7.0.0-alpha.3/fluentassertions.7.0.0-alpha.3.nupkg.sha512",
+    "/home/hp/.nuget/packages/genericcollectionsextension/1.4.0/genericcollectionsextension.1.4.0.nupkg.sha512",
     "/home/hp/.nuget/packages/humanizer.core/2.8.26/humanizer.core.2.8.26.nupkg.sha512",
     "/home/hp/.nuget/packages/microsoft.aspnet.webapi.client/6.0.0/microsoft.aspnet.webapi.client.6.0.0.nupkg.sha512",
     "/home/hp/.nuget/packages/microsoft.aspnet.webapi.core/5.3.0/microsoft.aspnet.webapi.core.5.3.0.nupkg.sha512",

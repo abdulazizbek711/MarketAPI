@@ -12,6 +12,7 @@
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.1",
           "FakeItEasy": "6.0.0",
           "FluentAssertions": "7.0.0-alpha.3",
+          "GenericCollectionsExtension": "1.4.0",
           "Microsoft.AspNet.WebApi.Core": "5.3.0",
           "Microsoft.EntityFrameworkCore.Design": "6.0.21",
           "Microsoft.EntityFrameworkCore.InMemory": "6.0.21",
@@ -90,6 +91,14 @@
           "lib/net6.0/FluentAssertions.dll": {
             "assemblyVersion": "7.0.0.0",
             "fileVersion": "7.0.0.0"
+          }
+        }
+      },
+      "GenericCollectionsExtension/1.4.0": {
+        "runtime": {
+          "lib/netstandard2.0/GenericCollectionsExtension.dll": {
+            "assemblyVersion": "1.4.0.0",
+            "fileVersion": "1.4.0.0"
           }
         }
       },
@@ -1743,6 +1752,13 @@
       "sha512": "sha512-c5HCYKAW0vhxx8qJ6s8o683GqjfKD7HCJPGA9IOcnZVvqa8atkG0mYhHEpkp/hnC4IVhRPmX+wHjBXDyZVn+3g==",
       "path": "fluentassertions/7.0.0-alpha.3",
       "hashPath": "fluentassertions.7.0.0-alpha.3.nupkg.sha512"
+    },
+    "GenericCollectionsExtension/1.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-u5IE+cF556AgOjuKjRlBoJFtq47StGFMRB33oGqiacmuMyL9fmaOoDD1puSyEBfr+Erky3UZtPb6rhRMJB5APw==",
+      "path": "genericcollectionsextension/1.4.0",
+      "hashPath": "genericcollectionsextension.1.4.0.nupkg.sha512"
     },
     "Humanizer.Core/2.8.26": {
       "type": "package",

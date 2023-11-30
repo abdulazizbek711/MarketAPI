@@ -39,6 +39,7 @@ public class OrderControllerTests
         //Assert
         result.Should().NotBeNull();
         result.Should().BeOfType(typeof(OkObjectResult));
+        result.Should().BeOfType<OkObjectResult>().Which.StatusCode.Should().Be(200);
     }
 
     [Theory]
@@ -53,6 +54,7 @@ public class OrderControllerTests
         var result = controller.CreateOrder(User_ID, order);
         //Assert
         result.Should().NotBeNull();
+        result.Should().BeOfType<BadRequestObjectResult>().Which.StatusCode.Should().Be(400);
     }
 
     [Fact]
@@ -66,6 +68,7 @@ public class OrderControllerTests
         var result = controller.UpdateOrder(Order_ID, order);
         //Assert
         result.Should().NotBeNull();
+        result.Should().BeOfType<BadRequestObjectResult>().Which.StatusCode.Should().Be(400);
     }
 
     [Theory]
@@ -78,6 +81,7 @@ public class OrderControllerTests
         //Act
         var result = controller.DeleteOrder(Order_ID);
         //Assert
-        result.Should().BeOfType(typeof(ObjectResult));
+        result.Should().NotBeNull();
+        result.Should().BeOfType<BadRequestObjectResult>().Which.StatusCode.Should().Be(400);
     }
 }

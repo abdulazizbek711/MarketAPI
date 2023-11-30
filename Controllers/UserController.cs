@@ -40,7 +40,7 @@ public class UserController : Controller
             if (!result.success)
             {
                 ModelState.AddModelError("", "Something went wrong while saving");
-                return StatusCode(500, ModelState);
+                return BadRequest(ModelState);
             }
             return Ok(userCreate);
         }
@@ -55,7 +55,7 @@ public class UserController : Controller
             if (!result.success)
             {
                 ModelState.AddModelError("", "Something went wrong while updating");
-                return StatusCode(500, ModelState);
+                return BadRequest(ModelState);
             }
 
             return Ok(updatedUser);
@@ -71,7 +71,7 @@ public class UserController : Controller
             if (!result.success)
             {
                 ModelState.AddModelError("", "Something went wrong while updating");
-                return StatusCode(500, ModelState);
+                return BadRequest(ModelState);
             }
             return NoContent();
         }
