@@ -8,9 +8,7 @@ using MarketApi.Repositories;
 using MarketApi.Services;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
-
 namespace MarketApi.MarketApiTests.ServiceTests;
-
 public class ProductServiceTests
 {
     private readonly IProductRepository _productRepository;
@@ -32,7 +30,6 @@ public class ProductServiceTests
         // Assert
         result.Should().NotBeNull();
     }
-
     [Fact]
     public void ProductService_CreateProduct_ReturnOkObjectResult()
     {
@@ -49,7 +46,6 @@ public class ProductServiceTests
         //Assert
         result.Should().NotBeNull();
     }
-
     [Fact]
     public void ProductService_UpdateProduct_ReturnOkObjectResult()
     {
@@ -67,7 +63,6 @@ public class ProductServiceTests
         // Assert
         result.Should().NotBeNull();
     }
-
     [Fact]
     public void ProductService_DeleteProduct_ReturnOkObjectResult()
     {

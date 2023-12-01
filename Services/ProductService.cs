@@ -4,7 +4,6 @@ using MarketApi.Interfaces;
 using MarketApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
 namespace MarketApi.Services;
 public class ProductService: IProductService
 {

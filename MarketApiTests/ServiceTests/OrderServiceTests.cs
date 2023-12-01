@@ -7,9 +7,7 @@ using MarketApi.Models;
 using MarketApi.Services;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
-
 namespace MarketApi.MarketApiTests.ServiceTests;
-
 public class OrderServiceTests
 {
     private readonly IOrderRepository _orderRepository;
@@ -31,7 +29,6 @@ public class OrderServiceTests
         // Assert
         result.Should().NotBeNull();
     }
-
     [Fact]
     public void OrderService_CreateOrder_ReturnOkObjectResult()
     {
@@ -48,7 +45,6 @@ public class OrderServiceTests
         //Assert
         result.Should().NotBeNull();
     }
-
     [Fact]
     public void OrderService_UpdateOrder_ReturnOkObjectResult()
     {
@@ -66,7 +62,6 @@ public class OrderServiceTests
         // Assert
         result.Should().NotBeNull();
     }
-
     [Fact]
     public void OrderService_DeleteOrder_ReturnOkObjectResult()
     {

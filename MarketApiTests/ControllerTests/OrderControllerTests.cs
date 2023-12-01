@@ -6,9 +6,7 @@ using MarketApi.Dtos;
 using MarketApi.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Xunit;
-
 namespace MarketApi.MarketApiTests.ControllerTests;
-
 public class OrderControllerTests
 {
     private readonly IOrderRepository _orderRepository;
@@ -41,7 +39,6 @@ public class OrderControllerTests
         result.Should().BeOfType(typeof(OkObjectResult));
         result.Should().BeOfType<OkObjectResult>().Which.StatusCode.Should().Be(200);
     }
-
     [Theory]
     [InlineData(1)]
     [InlineData(2)]
@@ -56,7 +53,6 @@ public class OrderControllerTests
         result.Should().NotBeNull();
         result.Should().BeOfType<BadRequestObjectResult>().Which.StatusCode.Should().Be(400);
     }
-
     [Fact]
     public void OrderController_UpdateOrder_ReturnsOkObjectResult()
     {
@@ -70,7 +66,6 @@ public class OrderControllerTests
         result.Should().NotBeNull();
         result.Should().BeOfType<BadRequestObjectResult>().Which.StatusCode.Should().Be(400);
     }
-
     [Theory]
     [InlineData(1)]
     [InlineData(2)]

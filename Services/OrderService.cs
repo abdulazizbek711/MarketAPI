@@ -3,7 +3,6 @@ using MarketApi.Dtos;
 using MarketApi.Interfaces;
 using MarketApi.Models;
 using Microsoft.EntityFrameworkCore;
-
 namespace MarketApi.Services;
 public class OrderService:IOrderService
 {
@@ -18,7 +17,7 @@ public class OrderService:IOrderService
     public IEnumerable<Order> GetOrders()
     {
         var orders = _orderRepository.GetOrders();
-        if (orders == null)
+        if (orders == null || !orders.Any())
         {
             throw new InvalidOperationException("No orders found");
         }
@@ -33,7 +32,6 @@ public class OrderService:IOrderService
         var existingOrder = _orderRepository.GetOrders()
             .FirstOrDefault(c => c.Order_number != null &&
                                  c.Order_number.ToString().ToUpper() == orderCreate.Order_number.ToString().ToUpper());
-
         if (existingOrder != null)
         {
             return (false, "Order already exists");

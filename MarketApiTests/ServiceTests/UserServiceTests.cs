@@ -7,9 +7,7 @@ using MarketApi.Models;
 using MarketApi.Services;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
-
 namespace MarketApi.MarketApiTests.ServiceTests;
-
 public class UserServiceTests
 {
     private readonly IUserRepository _userRepository;
@@ -31,7 +29,6 @@ public class UserServiceTests
         // Assert
         result.Should().NotBeNull();
     }
-
     [Fact]
     public void UserService_CreateUser_ReturnOkObjectResult()
     {
@@ -50,7 +47,6 @@ public class UserServiceTests
         result.Item1.Should().BeTrue();
         result.Item2.Should().Be("User created successfully");
     }
-
     [Fact]
     public void UserService_UpdateUser_ReturnOkObjectResult()
     {
@@ -68,7 +64,6 @@ public class UserServiceTests
         // Assert
         result.Should().NotBeNull();
     }
-
     [Fact]
     public void UserService_DeleteUser_ReturnOkObjectResult()
     {

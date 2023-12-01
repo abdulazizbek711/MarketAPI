@@ -35,7 +35,6 @@ public class ProductRepositoryTests
         }
         return databaseContext;
     }
-
     [Fact]
     public async  Task ProductRepository_GetProducts_ReturnsProducts()
     {
@@ -125,5 +124,4 @@ public class ProductRepositoryTests
         //Assert
         result.Should().BeFalse();
     }
-    
 }

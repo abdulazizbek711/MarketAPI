@@ -3,7 +3,6 @@ using MarketApi.Dtos;
 using MarketApi.Interfaces;
 using MarketApi.Models;
 using Microsoft.EntityFrameworkCore;
-
 namespace MarketApi.Services;
 public class UserService:IUserService
 {

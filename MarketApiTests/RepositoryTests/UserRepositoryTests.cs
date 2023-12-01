@@ -5,9 +5,7 @@ using MarketApi.Models;
 using MarketApi.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
-
 namespace MarketApi.MarketApiTests.RepositoryTests;
-
 public class UserRepositoryTests
 {
     private async Task<DataContext> GetDatabaseContext()
@@ -34,7 +32,6 @@ public class UserRepositoryTests
         }
         return databaseContext;
     }
-
     [Fact]
     public async  Task UserRepository_GetUsers_ReturnsProducts()
     {
@@ -46,7 +43,6 @@ public class UserRepositoryTests
         //Assert
         result.Should().NotBeNull();
     }
-    
     [Fact]
     public async Task UserRepository_GetUser_ReturnUserByUser_ID()
     {

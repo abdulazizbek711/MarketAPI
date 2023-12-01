@@ -6,9 +6,7 @@ using MarketApi.Dtos;
 using MarketApi.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Xunit;
-
 namespace MarketApi.MarketApiTests.ControllerTests;
-
 public class UserControllerTests
 {
     private readonly IUserRepository _userRepository;
@@ -37,7 +35,6 @@ public class UserControllerTests
         result.Should().BeOfType(typeof(OkObjectResult));
         result.Should().BeOfType<OkObjectResult>().Which.StatusCode.Should().Be(200);
     }
-
     [Fact]
     public void UserController_CreateUser_ReturnsOkObjectResult()
     {

@@ -8,9 +8,7 @@ using MarketApi.Interfaces;
 using MarketApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Xunit;
-
 namespace MarketApi.MarketApiTests.ControllerTests;
-
 public class ProductControllerTests
 {
     private readonly IProductRepository _productRepository;
