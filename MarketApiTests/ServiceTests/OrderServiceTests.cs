@@ -21,7 +21,7 @@ public class OrderServiceTests
         // Arrange
         var fakeOrderRepository = A.Fake<IOrderRepository>();
         A.CallTo(() => fakeOrderRepository.GetOrders()).Returns(new List<Order> { new Order(), new Order() });
-        var fakeDbContextOptions = new DbContextOptions<DataContext>(/* you can pass options here if needed */);
+        var fakeDbContextOptions = new DbContextOptions<DataContext>();
         var fakeDbContext = A.Fake<DataContext>(x => x.WithArgumentsForConstructor(new[] { fakeDbContextOptions }));
         var orderService = new OrderService(fakeOrderRepository, fakeDbContext);
         // Act
@@ -37,7 +37,7 @@ public class OrderServiceTests
         var order = new Order {Order_number = 1 };
         var fakeOrderRepository = A.Fake<IOrderRepository>();
         A.CallTo(() => fakeOrderRepository.GetOrders()).Returns(new List<Order> { new Order(), new Order() });
-        var fakeDbContextOptions = new DbContextOptions<DataContext>(/* you can pass options here if needed */);
+        var fakeDbContextOptions = new DbContextOptions<DataContext>();
         var fakeDbContext = A.Fake<DataContext>(x => x.WithArgumentsForConstructor(new[] { fakeDbContextOptions }));
         var orderService = new OrderService(fakeOrderRepository, fakeDbContext);
         //Act
@@ -54,7 +54,7 @@ public class OrderServiceTests
         var order = new Order { Order_number = 2};
         var fakeOrderRepository = A.Fake<IOrderRepository>();
         A.CallTo(() => fakeOrderRepository.GetOrders()).Returns(new List<Order> { new Order(), new Order() });
-        var fakeDbContextOptions = new DbContextOptions<DataContext>(/* you can pass options here if needed */);
+        var fakeDbContextOptions = new DbContextOptions<DataContext>();
         var fakeDbContext = A.Fake<DataContext>(x => x.WithArgumentsForConstructor(new[] { fakeDbContextOptions }));
         var orderService = new OrderService(fakeOrderRepository, fakeDbContext);
         // Act
@@ -69,7 +69,7 @@ public class OrderServiceTests
         var Order_number = 1;
         var fakeOrderRepository = A.Fake<IOrderRepository>();
         A.CallTo(() => fakeOrderRepository.GetOrders()).Returns(new List<Order> { new Order(), new Order() });
-        var fakeDbContextOptions = new DbContextOptions<DataContext>(/* you can pass options here if needed */);
+        var fakeDbContextOptions = new DbContextOptions<DataContext>();
         var fakeDbContext = A.Fake<DataContext>(x => x.WithArgumentsForConstructor(new[] { fakeDbContextOptions }));
         var orderService = new OrderService(fakeOrderRepository, fakeDbContext);
         // Act

@@ -13,6 +13,7 @@
     <PackageReference Include="FluentAssertions" Version="7.0.0-alpha.3" />
     <PackageReference Include="GenericCollectionsExtension" Version="1.4.0" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.21" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.21">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -20,6 +21,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.21" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.21" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="Moq" Version="4.20.70" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.22" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
@@ -36,6 +38,8 @@
     <_ContentIncludedByDefault Remove="MarketApiTests\obj\MarketApiTests.csproj.nuget.dgspec.json" />
     <_ContentIncludedByDefault Remove="MarketApiTests\obj\project.assets.json" />
     <_ContentIncludedByDefault Remove="MarketApiTests\obj\project.packagespec.json" />
+    <_ContentIncludedByDefault Remove="MarketApiIntegrationTests\obj\MarketApiIntegrationTests.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="MarketApiIntegrationTests\obj\project.assets.json" />
   </ItemGroup>
 
 </Project>

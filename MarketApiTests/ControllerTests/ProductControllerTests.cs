@@ -25,9 +25,9 @@ public class ProductControllerTests
     [Fact]
     public void ProductController_GetProducts_ReturnsOkObjectResult()
     {
-        //Assign
-        var products = A.CollectionOfDummy<ProductDto>(3); // Use A.CollectionOfDummy to create a collection of fake ProductDto
-        var productList = A.CollectionOfDummy<ProductDto>(3).ToList(); // Convert t
+        //Arrange
+        var products = A.CollectionOfDummy<ProductDto>(3); 
+        var productList = A.CollectionOfDummy<ProductDto>(3).ToList(); 
         A.CallTo(() => _mapper.Map<List<ProductDto>>(products)).Returns(productList);
         var controller = new ProductController(_productRepository, _productService, _mapper, _productMap);
         //Act
@@ -40,7 +40,7 @@ public class ProductControllerTests
     [Fact]
     public void ProductController_CreateProduct_ReturnsOkObjectResult()
     {
-        //Assign
+        //Arrange
         var product = A.Fake<ProductDto>();
         var controller = new ProductController(_productRepository, _productService, _mapper, _productMap);
         //Act
@@ -52,7 +52,7 @@ public class ProductControllerTests
     [Fact]
     public void ProductController_UpdateProduct_ReturnsOkObjectResult()
     {
-        //Assign
+        //Arrange
         var Product_ID = 1;
         var product = A.Fake<ProductDto>();
         var controller = new ProductController(_productRepository, _productService, _mapper, _productMap);
@@ -67,7 +67,7 @@ public class ProductControllerTests
     [InlineData(2)]
     public void ProductController_DeleteProduct_ReturnsOkObjectResult(int Product_ID)
     {
-        //Assign
+        //Arrange
         var controller = new ProductController(_productRepository, _productService, _mapper, _productMap);
         //Act
         var result = controller.DeleteProduct(Product_ID);

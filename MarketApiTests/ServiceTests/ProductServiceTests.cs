@@ -22,7 +22,7 @@ public class ProductServiceTests
         // Arrange
         var fakeProductRepository = A.Fake<IProductRepository>();
         A.CallTo(() => fakeProductRepository.GetProducts()).Returns(new List<Product> { new Product(), new Product() });
-        var fakeDbContextOptions = new DbContextOptions<DataContext>(/* you can pass options here if needed */);
+        var fakeDbContextOptions = new DbContextOptions<DataContext>();
         var fakeDbContext = A.Fake<DataContext>(x => x.WithArgumentsForConstructor(new[] { fakeDbContextOptions }));
         var productService = new ProductService(fakeProductRepository, fakeDbContext);
         // Act
@@ -38,7 +38,7 @@ public class ProductServiceTests
         var product = new Product { Product_type = "kiwi" };
         var fakeProductRepository = A.Fake<IProductRepository>();
         A.CallTo(() => fakeProductRepository.GetProducts()).Returns(new List<Product> { new Product(), new Product() });
-        var fakeDbContextOptions = new DbContextOptions<DataContext>(/* you can pass options here if needed */);
+        var fakeDbContextOptions = new DbContextOptions<DataContext>();
         var fakeDbContext = A.Fake<DataContext>(x => x.WithArgumentsForConstructor(new[] { fakeDbContextOptions }));
         var productService = new ProductService(fakeProductRepository, fakeDbContext);
         //Act
@@ -55,7 +55,7 @@ public class ProductServiceTests
         var product = new Product { Product_type = "kiwi" };
         var fakeProductRepository = A.Fake<IProductRepository>();
         A.CallTo(() => fakeProductRepository.GetProducts()).Returns(new List<Product> { new Product(), new Product() });
-        var fakeDbContextOptions = new DbContextOptions<DataContext>(/* you can pass options here if needed */);
+        var fakeDbContextOptions = new DbContextOptions<DataContext>();
         var fakeDbContext = A.Fake<DataContext>(x => x.WithArgumentsForConstructor(new[] { fakeDbContextOptions }));
         var productService = new ProductService(fakeProductRepository, fakeDbContext);
         // Act
@@ -70,7 +70,7 @@ public class ProductServiceTests
         var Product_ID = 40;
         var fakeProductRepository = A.Fake<IProductRepository>();
         A.CallTo(() => fakeProductRepository.GetProducts()).Returns(new List<Product> { new Product(), new Product() });
-        var fakeDbContextOptions = new DbContextOptions<DataContext>(/* you can pass options here if needed */);
+        var fakeDbContextOptions = new DbContextOptions<DataContext>();
         var fakeDbContext = A.Fake<DataContext>(x => x.WithArgumentsForConstructor(new[] { fakeDbContextOptions }));
         var productService = new ProductService(fakeProductRepository, fakeDbContext);
         // Act

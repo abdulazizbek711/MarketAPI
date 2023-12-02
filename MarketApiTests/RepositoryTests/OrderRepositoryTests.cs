@@ -49,7 +49,7 @@ public class OrderRepositoryTests
     [Fact]
     public async Task OrderRepository_GetOrder_ReturnOrderByOrder_number()
     {
-        //Assign
+        //Arrange
         int Order_number = 1;
         var dbContext = await GetDatabaseContext();
         var orderRepository = new OrderRepository(dbContext);
@@ -62,7 +62,7 @@ public class OrderRepositoryTests
     [Fact]
     public async Task OrderRepository_OrderExists_ReturnBool()
     {
-        //Assign
+        //Arrange
         var Order_number = 2;
         var dbContext = await GetDatabaseContext();
         var orderRepository = new OrderRepository(dbContext);
@@ -74,7 +74,7 @@ public class OrderRepositoryTests
     [Fact]
     public async Task OrderRepository_CreateOrder_ReturnBool()
     {
-        //Assign
+        //Arrange
         var order = A.Fake<Order>();
         order.Price_Currency = "$";
         var dbContext = await GetDatabaseContext();
@@ -87,7 +87,7 @@ public class OrderRepositoryTests
     [Fact]
     public async Task OrderRepository_UpdateOrder_ReturnBool()
     {
-        //Assign
+        //Arrange
         var order = A.Fake<Order>();
         order.Price_Currency = "$";
         var dbContext = await GetDatabaseContext();
@@ -100,7 +100,7 @@ public class OrderRepositoryTests
     [Fact]
     public async Task OrderRepository_DeleteOrder_ReturnBool()
     {
-        //Assign
+        //Arrange
         var order = A.Fake<Order>();
         var dbContext = await GetDatabaseContext();
         var orderRepository = new OrderRepository(dbContext);

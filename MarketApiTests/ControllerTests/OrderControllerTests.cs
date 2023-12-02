@@ -27,8 +27,8 @@ public class OrderControllerTests
     [Fact]
     public void OrderController_GetOrders_ReturnsOkObjectResult()
     {
-        //Assign
-        var orders = A.CollectionOfDummy<OrderDto>(3); // Use A.CollectionOfDummy to create a collection of fake ProductDto
+        //Arrange
+        var orders = A.CollectionOfDummy<OrderDto>(3); 
         var orderList = A.CollectionOfDummy<OrderDto>(3).ToList(); 
         A.CallTo(() => _mapper.Map<List<OrderDto>>(orders)).Returns(orderList);
         var controller = new OrderController(_mapper, _orderService, _orderRepository, _userRepository, _orderMap, _productRepository);
@@ -44,7 +44,7 @@ public class OrderControllerTests
     [InlineData(2)]
     public void OrderController_CreateUser_ReturnsOkObjectResult(int User_ID)
     {
-        //Assign
+        //Arrange
         var order = A.Fake<OrderDto>();
         var controller = new OrderController(_mapper, _orderService, _orderRepository, _userRepository, _orderMap, _productRepository);
         //Act
@@ -56,7 +56,7 @@ public class OrderControllerTests
     [Fact]
     public void OrderController_UpdateOrder_ReturnsOkObjectResult()
     {
-        //Assign
+        //Arrange
         var Order_ID = 1;
         var order = A.Fake<OrderDto>();
         var controller = new OrderController(_mapper, _orderService, _orderRepository, _userRepository, _orderMap, _productRepository);
@@ -71,7 +71,7 @@ public class OrderControllerTests
     [InlineData(2)]
     public void OrderController_DeleteOrder_ReturnsOkObjectResult(int Order_ID)
     {
-        //Assign
+        //Arrange
         var controller = new OrderController(_mapper, _orderService, _orderRepository, _userRepository, _orderMap, _productRepository);
         //Act
         var result = controller.DeleteOrder(Order_ID);

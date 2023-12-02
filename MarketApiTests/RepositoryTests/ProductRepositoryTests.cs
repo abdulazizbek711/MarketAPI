@@ -49,7 +49,7 @@ public class ProductRepositoryTests
     [Fact]
     public async Task ProductRepository_GetProduct_ReturnProductByProduct_type()
     {
-        //Assign
+        //Arrange
         var Product_type = "Apple";
         var dbContext = await GetDatabaseContext();
         var productRepository = new ProductRepository(dbContext);
@@ -62,7 +62,7 @@ public class ProductRepositoryTests
     [Fact]
     public async Task ProductRepository_GetProduct_ReturnProductByProduct_ID()
     {
-        //Assign
+        //Arrange
         var Product_ID = 2;
         var dbContext = await GetDatabaseContext();
         var productRepository = new ProductRepository(dbContext);
@@ -75,7 +75,7 @@ public class ProductRepositoryTests
     [Fact]
     public async Task ProductRepository_ProductExists_ReturnBool()
     {
-        //Assign
+        //Arrange
         var Product_ID = 2;
         var dbContext = await GetDatabaseContext();
         var productRepository = new ProductRepository(dbContext);
@@ -87,7 +87,7 @@ public class ProductRepositoryTests
     [Fact]
     public async Task ProductRepository_CreateProduct_ReturnBool()
     {
-        //Assign
+        //Arrange
         var product = A.Fake<Product>();
         product.Price_Currency = "$"; // Set required properties
         product.Product_type = "Banana"; // Set required properties
@@ -101,7 +101,7 @@ public class ProductRepositoryTests
     [Fact]
     public async Task ProductRepository_UpdateProduct_ReturnBool()
     {
-        //Assign
+        //Arrange
         var product = A.Fake<Product>();
         product.Price_Currency = "$"; // Set required properties
         product.Product_type = "Mango"; // Set required properties
@@ -115,7 +115,7 @@ public class ProductRepositoryTests
     [Fact]
     public async Task ProductRepository_DeleteProduct_ReturnBool()
     {
-        //Assign
+        //Arrange
         var product = A.Fake<Product>();
         var dbContext = await GetDatabaseContext();
         var productRepository = new ProductRepository(dbContext);

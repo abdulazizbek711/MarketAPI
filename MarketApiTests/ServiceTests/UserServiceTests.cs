@@ -21,7 +21,7 @@ public class UserServiceTests
         // Arrange
         var fakeUserRepository = A.Fake<IUserRepository>();
         A.CallTo(() => fakeUserRepository.GetUsers()).Returns(new List<User> { new User(), new User() });
-        var fakeDbContextOptions = new DbContextOptions<DataContext>(/* you can pass options here if needed */);
+        var fakeDbContextOptions = new DbContextOptions<DataContext>();
         var fakeDbContext = A.Fake<DataContext>(x => x.WithArgumentsForConstructor(new[] { fakeDbContextOptions }));
         var userService = new UserService(fakeUserRepository, fakeDbContext);
         // Act
@@ -37,7 +37,7 @@ public class UserServiceTests
         var user = new User { UserName = "Abdulaziz" };
         var fakeUserRepository = A.Fake<IUserRepository>();
         A.CallTo(() => fakeUserRepository.GetUsers()).Returns(new List<User> { new User(), new User() });
-        var fakeDbContextOptions = new DbContextOptions<DataContext>(/* you can pass options here if needed */);
+        var fakeDbContextOptions = new DbContextOptions<DataContext>();
         var fakeDbContext = A.Fake<DataContext>(x => x.WithArgumentsForConstructor(new[] { fakeDbContextOptions }));
         var userService = new UserService(fakeUserRepository, fakeDbContext);
         //Act
@@ -56,7 +56,7 @@ public class UserServiceTests
         var user = new User { UserName = "Abdulaziz" };
         var fakeUserRepository = A.Fake<IUserRepository>();
         A.CallTo(() => fakeUserRepository.GetUsers()).Returns(new List<User> { new User(), new User() });
-        var fakeDbContextOptions = new DbContextOptions<DataContext>(/* you can pass options here if needed */);
+        var fakeDbContextOptions = new DbContextOptions<DataContext>();
         var fakeDbContext = A.Fake<DataContext>(x => x.WithArgumentsForConstructor(new[] { fakeDbContextOptions }));
         var userService = new UserService(fakeUserRepository, fakeDbContext);
         // Act
@@ -71,7 +71,7 @@ public class UserServiceTests
         var User_ID = 40;
         var fakeUserRepository = A.Fake<IUserRepository>();
         A.CallTo(() => fakeUserRepository.GetUsers()).Returns(new List<User> { new User(), new User() });
-        var fakeDbContextOptions = new DbContextOptions<DataContext>(/* you can pass options here if needed */);
+        var fakeDbContextOptions = new DbContextOptions<DataContext>();
         var fakeDbContext = A.Fake<DataContext>(x => x.WithArgumentsForConstructor(new[] { fakeDbContextOptions }));
         var userService = new UserService(fakeUserRepository, fakeDbContext);
         // Act

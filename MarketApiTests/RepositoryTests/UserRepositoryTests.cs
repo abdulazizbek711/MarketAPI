@@ -46,7 +46,7 @@ public class UserRepositoryTests
     [Fact]
     public async Task UserRepository_GetUser_ReturnUserByUser_ID()
     {
-        //Assign
+        //Arrange
         int User_ID = 2;
         var dbContext = await GetDatabaseContext();
         var userRepository = new UserRepository(dbContext);
@@ -59,7 +59,7 @@ public class UserRepositoryTests
     [Fact]
     public async Task UserRepository_UserExists_ReturnBool()
     {
-        //Assign
+        //Arrange
         var User_ID = 2;
         var dbContext = await GetDatabaseContext();
         var userRepository = new UserRepository(dbContext);
@@ -71,7 +71,7 @@ public class UserRepositoryTests
     [Fact]
     public async Task UserRepository_CreateUser_ReturnBool()
     {
-        //Assign
+        //Arrange
         var user = A.Fake<User>();
         user.Email = "panjiyevs@gmail.com"; // Set required properties
         user.UserName = "insanely"; // Set required properties*/
@@ -85,7 +85,7 @@ public class UserRepositoryTests
     [Fact]
     public async Task UserRepository_UpdateUser_ReturnBool()
     {
-        //Assign
+        //Arrange
         var user = A.Fake<User>();
         user.Email = "panjiyevs@gmail.com"; // Set required properties
         user.UserName = "insanely"; // Set required properties*/
@@ -99,7 +99,7 @@ public class UserRepositoryTests
     [Fact]
     public async Task UserRepository_DeleteUser_ReturnBool()
     {
-        //Assign
+        //Arrange
         var user = A.Fake<User>();
         var dbContext = await GetDatabaseContext();
         var userRepository = new UserRepository(dbContext);

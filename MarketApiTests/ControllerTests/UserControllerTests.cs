@@ -23,8 +23,8 @@ public class UserControllerTests
     [Fact]
     public void UserController_GetUsers_ReturnsOkObjectResult()
     {
-        //Assign
-        var users = A.CollectionOfDummy<UserDto>(3); // Use A.CollectionOfDummy to create a collection of fake ProductDto
+        //Arrange
+        var users = A.CollectionOfDummy<UserDto>(3); 
         var userList = A.CollectionOfDummy<UserDto>(3).ToList(); 
         A.CallTo(() => _mapper.Map<List<UserDto>>(users)).Returns(userList);
         var controller = new UserController(_userRepository, _mapper, _userService, _userMap);
@@ -38,7 +38,7 @@ public class UserControllerTests
     [Fact]
     public void UserController_CreateUser_ReturnsOkObjectResult()
     {
-        //Assign
+        //Arrange
         var user = A.Fake<UserDto>();
         var controller = new UserController(_userRepository, _mapper, _userService, _userMap);
         //Act
@@ -51,7 +51,7 @@ public class UserControllerTests
     [Fact]
     public void UserController_UpdateUser_ReturnsOkObjectResult()
     {
-        //Assign
+        //Arrange
         var User_ID = 1;
         var user = A.Fake<UserDto>();
         var controller = new UserController(_userRepository, _mapper, _userService, _userMap);
@@ -67,7 +67,7 @@ public class UserControllerTests
     [InlineData(2)]
     public void UserController_DeleteProduct_ReturnsOkObjectResult(int User_ID)
     {
-        //Assign
+        //Arrange
         var controller = new UserController(_userRepository, _mapper, _userService, _userMap);
         //Act
         var result = controller.DeleteUser(User_ID);
