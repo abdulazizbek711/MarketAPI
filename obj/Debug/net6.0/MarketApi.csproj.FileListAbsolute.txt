@@ -156,8 +156,6 @@
 /home/hp/Desktop/MarketApi/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.InMemory.dll
 /home/hp/Desktop/MarketApi/bin/Debug/net6.0/GenericCollectionsExtension.dll
 /home/hp/Desktop/MarketApi/obj/Debug/net6.0/MvcTestingAppManifest.json
-/home/hp/Desktop/MarketApi/bin/Debug/net6.0/MarketApiIntegrationTests/obj/MarketApiIntegrationTests.csproj.nuget.dgspec.json
-/home/hp/Desktop/MarketApi/bin/Debug/net6.0/MarketApiIntegrationTests/obj/project.assets.json
 /home/hp/Desktop/MarketApi/bin/Debug/net6.0/MvcTestingAppManifest.json
 /home/hp/Desktop/MarketApi/bin/Debug/net6.0/refs/Microsoft.AspNetCore.Antiforgery.dll
 /home/hp/Desktop/MarketApi/bin/Debug/net6.0/refs/Microsoft.AspNetCore.Authentication.Abstractions.dll

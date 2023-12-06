@@ -44,7 +44,7 @@ namespace MarketApi.Controllers
                 return BadRequest(ModelState); // Return a 400 Bad Request for client errors
             }
 
-            return Ok(productCreate);
+            return NoContent();
         }
         [HttpPut("{Product_ID}")]
         [ProducesResponseType(204)]
@@ -59,7 +59,8 @@ namespace MarketApi.Controllers
                 ModelState.AddModelError("", "Something went wrong while updating");
                 return BadRequest(ModelState);
             }
-            return Ok(updatedProduct);
+
+            return NoContent();
         }
         [HttpDelete("{Product_ID}")]
         [ProducesResponseType(400)]

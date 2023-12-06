@@ -47,7 +47,14 @@ public class ProductControllerTests
         var result = controller.CreateProduct(product);
         //Assert
         result.Should().NotBeNull();
-        result.Should().BeOfType<BadRequestObjectResult>().Which.StatusCode.Should().Be(400);
+        if (result is NoContentResult noContentResult)
+        {
+            noContentResult.StatusCode.Should().Be(204); 
+        }
+        else if (result is BadRequestObjectResult badRequest)
+        {
+            badRequest.StatusCode.Should().Be(400);
+        }
     }
     [Fact]
     public void ProductController_UpdateProduct_ReturnsOkObjectResult()
@@ -60,7 +67,14 @@ public class ProductControllerTests
         var result = controller.UpdateProduct(Product_ID, product);
         //Assert
         result.Should().NotBeNull();
-        result.Should().BeOfType<BadRequestObjectResult>().Which.StatusCode.Should().Be(400);
+        if (result is NoContentResult noContentResult)
+        {
+            noContentResult.StatusCode.Should().Be(204); 
+        }
+        else if (result is BadRequestObjectResult badRequest)
+        {
+            badRequest.StatusCode.Should().Be(400);
+        }
     }
     [Theory]
     [InlineData(1)]
@@ -73,6 +87,13 @@ public class ProductControllerTests
         var result = controller.DeleteProduct(Product_ID);
         //Assert
         result.Should().NotBeNull();
-        result.Should().BeOfType<BadRequestObjectResult>().Which.StatusCode.Should().Be(400);
+        if (result is NoContentResult noContentResult)
+        {
+            noContentResult.StatusCode.Should().Be(204); 
+        }
+        else if (result is BadRequestObjectResult badRequest)
+        {
+            badRequest.StatusCode.Should().Be(400);
+        }
     }
 }

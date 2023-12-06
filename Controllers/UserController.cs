@@ -42,7 +42,8 @@ public class UserController : Controller
                 ModelState.AddModelError("", "Something went wrong while saving");
                 return BadRequest(ModelState);
             }
-            return Ok(userCreate);
+
+            return NoContent();
         }
         [HttpPut("{User_ID}")]
         [ProducesResponseType(204)]
@@ -58,7 +59,7 @@ public class UserController : Controller
                 return BadRequest(ModelState);
             }
 
-            return Ok(updatedUser);
+            return NoContent();
         }
         [HttpDelete("{User_ID}")]
         [ProducesResponseType(400)]

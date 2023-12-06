@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "W6o9M+AG4grr6VOKsKDwDOd7UvUpxvnEQeOL+k/k/Otcky+HqanZ9uEkrWD8JLNlQbbI0TZdtX8wx8lzLBzlwA==",
+  "dgSpecHash": "wvlCVVqq/nYWgSk9QiXe3kxwWNaOy1KaUf1/p2boF8z6zZwEBI2PiKajM7eRsvvbV3Sc3KVGWHkYNrbu4Y9VFw==",
   "success": true,
-  "projectFilePath": "/home/hp/Desktop/MarketApi/MarketApi.csproj",
+  "projectFilePath": "/home/hp/Desktop/MarketAPI/MarketApi.csproj",
   "expectedPackageFiles": [
     "/home/hp/.nuget/packages/automapper/12.0.1/automapper.12.0.1.nupkg.sha512",
     "/home/hp/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/12.0.1/automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

@@ -46,6 +46,7 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.21",
           "Microsoft.NET.Test.Sdk": "17.8.0",
           "Moq": "4.20.70",
+          "Npgsql": "6.0.10",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "6.0.22",
           "Swashbuckle.AspNetCore": "6.5.0",
           "Swashbuckle.AspNetCore.Swagger": "6.5.0",

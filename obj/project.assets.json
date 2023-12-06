@@ -9275,6 +9275,7 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.21",
       "Microsoft.NET.Test.Sdk >= 17.8.0",
       "Moq >= 4.20.70",
+      "Npgsql >= 6.0.10",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 6.0.22",
       "Swashbuckle.AspNetCore >= 6.5.0",
       "Swashbuckle.AspNetCore.Swagger >= 6.5.0",
@@ -9289,11 +9290,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/hp/Desktop/MarketApi/MarketApi.csproj",
+      "projectUniqueName": "/home/hp/Desktop/MarketAPI/MarketApi.csproj",
       "projectName": "MarketApi",
-      "projectPath": "/home/hp/Desktop/MarketApi/MarketApi.csproj",
+      "projectPath": "/home/hp/Desktop/MarketAPI/MarketApi.csproj",
       "packagesPath": "/home/hp/.nuget/packages/",
-      "outputPath": "/home/hp/Desktop/MarketApi/obj/",
+      "outputPath": "/home/hp/Desktop/MarketAPI/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/hp/.nuget/NuGet/NuGet.Config"
@@ -9369,6 +9370,10 @@
           "Moq": {
             "target": "Package",
             "version": "[4.20.70, )"
+          },
+          "Npgsql": {
+            "target": "Package",
+            "version": "[6.0.10, )"
           },
           "Npgsql.EntityFrameworkCore.PostgreSQL": {
             "target": "Package",

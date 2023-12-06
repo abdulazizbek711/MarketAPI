@@ -54,7 +54,8 @@ namespace MarketApi.Controllers
                 ModelState.AddModelError("", "Something went wrong while saving");
                 return BadRequest(ModelState);
             }
-            return Ok(orderCreate);
+
+            return NoContent();
         }
         [HttpPut("{Order_number}")]
         [ProducesResponseType(204)]
@@ -69,7 +70,8 @@ namespace MarketApi.Controllers
                 ModelState.AddModelError("", "Something went wrong while updating");
                 return BadRequest(ModelState);
             }
-            return Ok(updatedOrder);
+
+            return NoContent();
         }
         [HttpDelete("{Order_number}")]
         [ProducesResponseType(400)]
