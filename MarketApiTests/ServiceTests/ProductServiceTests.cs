@@ -45,14 +45,16 @@ public class ProductServiceTests
         var result = productService.CreateProduct(product, productCreate);
         //Assert
         result.Should().NotBeNull();
+        result.Item1.Should().BeTrue();
+        result.Item2.Should().Be("Product created successfully");
     }
     [Fact]
     public void ProductService_UpdateProduct_ReturnOkObjectResult()
     {
         //Arrange
-        var Product_ID = 40;
-        var updatedProduct = new ProductDto { Product_type = "kiwi" };
-        var product = new Product { Product_type = "kiwi" };
+        var Product_ID = 1;
+        var updatedProduct = new ProductDto { Product_ID = 1};
+        var product = new Product { Product_ID = 1};
         var fakeProductRepository = A.Fake<IProductRepository>();
         A.CallTo(() => fakeProductRepository.GetProducts()).Returns(new List<Product> { new Product(), new Product() });
         var fakeDbContextOptions = new DbContextOptions<DataContext>();
@@ -62,6 +64,8 @@ public class ProductServiceTests
         var result = productService.UpdateProduct(product, Product_ID, updatedProduct);
         // Assert
         result.Should().NotBeNull();
+        result.Item1.Should().BeTrue();
+        result.Item2.Should().Be("Product updated successfully");
     }
     [Fact]
     public void ProductService_DeleteProduct_ReturnOkObjectResult()
@@ -69,7 +73,7 @@ public class ProductServiceTests
         // Arrange
         var Product_ID = 40;
         var fakeProductRepository = A.Fake<IProductRepository>();
-        A.CallTo(() => fakeProductRepository.GetProducts()).Returns(new List<Product> { new Product(), new Product() });
+        A.CallTo(() => fakeProductRepository.ProductExists(Product_ID)).Returns(true);
         var fakeDbContextOptions = new DbContextOptions<DataContext>();
         var fakeDbContext = A.Fake<DataContext>(x => x.WithArgumentsForConstructor(new[] { fakeDbContextOptions }));
         var productService = new ProductService(fakeProductRepository, fakeDbContext);
@@ -77,5 +81,7 @@ public class ProductServiceTests
         var result = productService.DeleteProduct(Product_ID);
         // Assert
         result.Should().NotBeNull();
+        result.Item1.Should().BeTrue();
+        result.Item2.Should().Be("Product successfully deleted");
     }
 }

@@ -36,7 +36,7 @@ public class UserServiceTests
         var userCreate = new UserDto { UserName = "Abdulaziz" };
         var user = new User { UserName = "Abdulaziz" };
         var fakeUserRepository = A.Fake<IUserRepository>();
-        A.CallTo(() => fakeUserRepository.GetUsers()).Returns(new List<User> { new User(), new User() });
+        A.CallTo(() => fakeUserRepository.GetUsers()).Returns(new List<User>());
         var fakeDbContextOptions = new DbContextOptions<DataContext>();
         var fakeDbContext = A.Fake<DataContext>(x => x.WithArgumentsForConstructor(new[] { fakeDbContextOptions }));
         var userService = new UserService(fakeUserRepository, fakeDbContext);
@@ -51,9 +51,9 @@ public class UserServiceTests
     public void UserService_UpdateUser_ReturnOkObjectResult()
     {
         //Arrange
-        var User_ID = 40;
-        var updatedUser = new UserDto { UserName = "Abdulaziz" };
-        var user = new User { UserName = "Abdulaziz" };
+        var User_ID = 1;
+        var updatedUser = new UserDto { User_ID = 1};
+        var user = new User { User_ID = 1};
         var fakeUserRepository = A.Fake<IUserRepository>();
         A.CallTo(() => fakeUserRepository.GetUsers()).Returns(new List<User> { new User(), new User() });
         var fakeDbContextOptions = new DbContextOptions<DataContext>();
@@ -63,6 +63,8 @@ public class UserServiceTests
         var result = userService.UpdateUser(user, User_ID, updatedUser);
         // Assert
         result.Should().NotBeNull();
+        result.Item1.Should().BeTrue();
+        result.Item2.Should().Be("User updated successfully");
     }
     [Fact]
     public void UserService_DeleteUser_ReturnOkObjectResult()
@@ -70,7 +72,7 @@ public class UserServiceTests
         // Arrange
         var User_ID = 40;
         var fakeUserRepository = A.Fake<IUserRepository>();
-        A.CallTo(() => fakeUserRepository.GetUsers()).Returns(new List<User> { new User(), new User() });
+        A.CallTo(() => fakeUserRepository.UserExists(User_ID)).Returns(true);
         var fakeDbContextOptions = new DbContextOptions<DataContext>();
         var fakeDbContext = A.Fake<DataContext>(x => x.WithArgumentsForConstructor(new[] { fakeDbContextOptions }));
         var userService = new UserService(fakeUserRepository, fakeDbContext);

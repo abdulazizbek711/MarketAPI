@@ -50,7 +50,6 @@ public class UserService:IUserService
         {
             return (false, "No users found");
         }
-        _context.Entry(existingUser).State = EntityState.Detached;
         existingUser.UserName = updatedUser.UserName ?? existingUser.UserName;
         existingUser.Email = updatedUser.Email ?? existingUser.Email;
         existingUser.PhoneNumber = updatedUser.PhoneNumber ?? existingUser.PhoneNumber;

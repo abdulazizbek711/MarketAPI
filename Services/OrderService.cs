@@ -39,7 +39,7 @@ public class OrderService:IOrderService
         _orderRepository.CreateOrder(order);
         return (true, "Order created successfully");
     }
-    public (bool, string) UpdateOrder(Order order, int Order_number,  OrderDto updatedOrder)
+    public (bool, string) UpdateOrder(Order order, int Order_number, OrderDto updatedOrder)
     {
         if (updatedOrder == null || Order_number != updatedOrder.Order_number)
         {
@@ -47,16 +47,18 @@ public class OrderService:IOrderService
         }
         var existingOrder = _orderRepository.GetOrder(Order_number);
         if (existingOrder == null)
-            return (false, "No orders found");
-        _context.Entry(existingOrder).State = EntityState.Detached;
+        {
+            return (false, "Order not found");
+        }
         existingOrder.User_ID = updatedOrder.User_ID ?? existingOrder.User_ID;
         existingOrder.Product_ID = updatedOrder.Product_ID ?? existingOrder.Product_ID;
         existingOrder.Quantity = updatedOrder.Quantity ?? existingOrder.Quantity;
         existingOrder.Price_Amount = updatedOrder.Price_Amount ?? existingOrder.Price_Amount;
         existingOrder.Price_Currency = updatedOrder.Price_Currency ?? existingOrder.Price_Currency;
-        _orderRepository.UpdateOrder(order);
+        _orderRepository.UpdateOrder(existingOrder);
         return (true, "Order updated successfully");
     }
+
     public (bool, string) DeleteOrder(int Order_number)
     {
         if (!_orderRepository.OrderExists(Order_number))
@@ -69,6 +71,6 @@ public class OrderService:IOrderService
             return (false, "Order not exist");
         }
         _orderRepository.DeleteOrder(orderToDelete);
-        return (true, "Order succesfully deleted");
+        return (true, "Order successfully deleted");
     }
 }

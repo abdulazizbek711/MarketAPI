@@ -49,7 +49,6 @@ public class ProductService: IProductService
         var existingProduct = _productRepository.GetProduct(Product_ID);
         if (existingProduct == null)
             return (false, "No products found");
-        _context.Entry(existingProduct).State = EntityState.Detached;
         existingProduct.Product_type = updatedProduct.Product_type ?? existingProduct.Product_type;
         existingProduct.Quantity = updatedProduct.Quantity ?? existingProduct.Quantity;
         existingProduct.Price_Amount= updatedProduct.Price_Amount ?? existingProduct.Price_Amount;

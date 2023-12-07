@@ -44,14 +44,16 @@ public class OrderServiceTests
         var result = orderService.CreateOrder(order, orderCreate);
         //Assert
         result.Should().NotBeNull();
+        result.Item1.Should().BeTrue();
+        result.Item2.Should().Be("Order created successfully");
     }
     [Fact]
     public void OrderService_UpdateOrder_ReturnOkObjectResult()
     {
         //Arrange
         var Order_number = 1;
-        var updatedOrder = new OrderDto { Order_number = 2};
-        var order = new Order { Order_number = 2};
+        var updatedOrder = new OrderDto { Order_number = 1};
+        var order = new Order { Order_number = 1};
         var fakeOrderRepository = A.Fake<IOrderRepository>();
         A.CallTo(() => fakeOrderRepository.GetOrders()).Returns(new List<Order> { new Order(), new Order() });
         var fakeDbContextOptions = new DbContextOptions<DataContext>();
@@ -61,6 +63,8 @@ public class OrderServiceTests
         var result = orderService.UpdateOrder(order, Order_number, updatedOrder);
         // Assert
         result.Should().NotBeNull();
+        result.Item1.Should().BeTrue();
+        result.Item2.Should().Be("Order updated successfully");
     }
     [Fact]
     public void OrderService_DeleteOrder_ReturnOkObjectResult()
@@ -68,7 +72,7 @@ public class OrderServiceTests
         // Arrange
         var Order_number = 1;
         var fakeOrderRepository = A.Fake<IOrderRepository>();
-        A.CallTo(() => fakeOrderRepository.GetOrders()).Returns(new List<Order> { new Order(), new Order() });
+        A.CallTo(() => fakeOrderRepository.OrderExists(Order_number)).Returns(true);
         var fakeDbContextOptions = new DbContextOptions<DataContext>();
         var fakeDbContext = A.Fake<DataContext>(x => x.WithArgumentsForConstructor(new[] { fakeDbContextOptions }));
         var orderService = new OrderService(fakeOrderRepository, fakeDbContext);
@@ -76,5 +80,7 @@ public class OrderServiceTests
         var result = orderService.DeleteOrder(Order_number);
         // Assert
         result.Should().NotBeNull();
+        result.Item1.Should().BeTrue();
+        result.Item2.Should().Be("Order successfully deleted");
     }
 }
