@@ -83,6 +83,7 @@ public class OrderRepositoryTests
         var result = orderRepository.CreateOrder(order);
         //Assert
         result.Should().BeTrue();
+        dbContext.Orders.Should().Contain(order);
     }
     [Fact]
     public async Task OrderRepository_UpdateOrder_ReturnBool()
@@ -96,17 +97,22 @@ public class OrderRepositoryTests
         var result = orderRepository.UpdateOrder(order);
         //Assert
         result.Should().BeTrue();
+        dbContext.Orders.Should().Contain(order);
     }
     [Fact]
     public async Task OrderRepository_DeleteOrder_ReturnBool()
     {
-        //Arrange
-        var order = A.Fake<Order>();
+        // Arrange
         var dbContext = await GetDatabaseContext();
+        var order = new Order { /* Initialize properties as needed */ };
+        dbContext.Orders.Add(order);
+        dbContext.SaveChanges();
         var orderRepository = new OrderRepository(dbContext);
-        //Act
+        // Act
         var result = orderRepository.DeleteOrder(order);
-        //Assert
-        result.Should().BeFalse();
+        // Assert
+        result.Should().BeTrue();
+        dbContext.Orders.Should().NotContain(order);
     }
+
 }

@@ -81,6 +81,7 @@ public class UserRepositoryTests
         var result = userRepository.CreateUser(user);
         //Assert
         result.Should().BeTrue();
+        dbContext.Users.Should().Contain(user);
     }
     [Fact]
     public async Task UserRepository_UpdateUser_ReturnBool()
@@ -95,17 +96,21 @@ public class UserRepositoryTests
         var result = userRepository.UpdateUser(user);
         //Assert
         result.Should().BeTrue();
+        dbContext.Users.Should().Contain(user);
     }
     [Fact]
     public async Task UserRepository_DeleteUser_ReturnBool()
     {
         //Arrange
-        var user = A.Fake<User>();
         var dbContext = await GetDatabaseContext();
+        var user = new User();
+        dbContext.Users.Add(user);
+        dbContext.SaveChanges();
         var userRepository = new UserRepository(dbContext);
         //Act
         var result = userRepository.DeleteUser(user);
         //Assert
-        result.Should().BeFalse();
+        result.Should().BeTrue();
+        dbContext.Users.Should().NotContain(user);
     }
 }

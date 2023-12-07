@@ -97,6 +97,7 @@ public class ProductRepositoryTests
         var result = productRepository.CreateProduct(product);
         //Assert
         result.Should().BeTrue();
+        dbContext.Products.Should().Contain(product);
     }
     [Fact]
     public async Task ProductRepository_UpdateProduct_ReturnBool()
@@ -111,17 +112,21 @@ public class ProductRepositoryTests
         var result = productRepository.UpdateProduct(product);
         //Assert
         result.Should().BeTrue();
+        dbContext.Products.Should().Contain(product);
     }
     [Fact]
     public async Task ProductRepository_DeleteProduct_ReturnBool()
     {
         //Arrange
-        var product = A.Fake<Product>();
         var dbContext = await GetDatabaseContext();
+        var product = new Product();
+        dbContext.Products.Add(product);
+        dbContext.SaveChanges();
         var productRepository = new ProductRepository(dbContext);
         //Act
         var result = productRepository.DeleteProduct(product);
         //Assert
-        result.Should().BeFalse();
+        result.Should().BeTrue();
+        dbContext.Products.Should().NotContain(product);
     }
 }

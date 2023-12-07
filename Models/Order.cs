@@ -8,7 +8,7 @@ public class Order
     public decimal Quantity { get; set; }
     public int User_ID { get; set; }
     public double Price_Amount { get; set; }
-    public string Price_Currency { get; set; }
+    public string Price_Currency { get; set; } = "USD";
     public User User { get; set; }
     public List<Product> Products { get; set; }
     public OrderQuantityType OrderQuantity_type { get; set; }
