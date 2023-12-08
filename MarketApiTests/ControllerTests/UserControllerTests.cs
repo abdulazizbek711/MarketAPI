@@ -75,7 +75,6 @@ public class UserControllerTests
             badRequest.StatusCode.Should().Be(400);
         }
     }
-
     [Theory]
     [InlineData(1)]
     [InlineData(2)]

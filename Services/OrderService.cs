@@ -55,7 +55,7 @@ public class OrderService:IOrderService
         existingOrder.Quantity = updatedOrder.Quantity ?? existingOrder.Quantity;
         existingOrder.Price_Amount = updatedOrder.Price_Amount ?? existingOrder.Price_Amount;
         existingOrder.Price_Currency = updatedOrder.Price_Currency ?? existingOrder.Price_Currency;
-        _orderRepository.UpdateOrder(existingOrder);
+        _orderRepository.UpdateOrder(order);
         return (true, "Order updated successfully");
     }
 

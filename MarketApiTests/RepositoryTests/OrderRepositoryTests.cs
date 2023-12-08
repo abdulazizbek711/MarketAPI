@@ -104,7 +104,7 @@ public class OrderRepositoryTests
     {
         // Arrange
         var dbContext = await GetDatabaseContext();
-        var order = new Order { /* Initialize properties as needed */ };
+        var order = new Order();
         dbContext.Orders.Add(order);
         dbContext.SaveChanges();
         var orderRepository = new OrderRepository(dbContext);

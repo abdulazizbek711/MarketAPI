@@ -88,8 +88,8 @@ public class UserRepositoryTests
     {
         //Arrange
         var user = A.Fake<User>();
-        user.Email = "panjiyevs@gmail.com"; // Set required properties
-        user.UserName = "insanely"; // Set required properties*/
+        user.Email = "panjiyevs@gmail.com"; 
+        user.UserName = "insanely"; 
         var dbContext = await GetDatabaseContext();
         var userRepository = new UserRepository(dbContext);
         //Act

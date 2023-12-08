@@ -54,7 +54,7 @@ public class UserService:IUserService
         existingUser.Email = updatedUser.Email ?? existingUser.Email;
         existingUser.PhoneNumber = updatedUser.PhoneNumber ?? existingUser.PhoneNumber;
         // Update the user in the repository
-        _userRepository.UpdateUser(existingUser);
+        _userRepository.UpdateUser(user);
         return (true, "User updated successfully");
     }
     public (bool, string) DeleteUser(int User_ID)

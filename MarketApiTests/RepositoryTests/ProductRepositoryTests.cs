@@ -104,8 +104,8 @@ public class ProductRepositoryTests
     {
         //Arrange
         var product = A.Fake<Product>();
-        product.Price_Currency = "$"; // Set required properties
-        product.Product_type = "Mango"; // Set required properties
+        product.Price_Currency = "$";
+        product.Product_type = "Mango"; 
         var dbContext = await GetDatabaseContext();
         var productRepository = new ProductRepository(dbContext);
         //Act
